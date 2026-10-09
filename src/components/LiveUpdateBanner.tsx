@@ -40,22 +40,22 @@ export default function LiveUpdateBanner({ category = "rent" }: { category?: str
   return (
     <div className="space-y-2 mb-3">
       {/* Real-time Status Strip */}
-      <div className="flex items-center justify-between bg-white px-3.5 py-2 rounded-xl border border-gray-200 text-xs text-gray-600 shadow-2xs">
+      <div className="flex items-center justify-between bg-linear-to-r from-sky-50/90 via-white to-teal-50/80 px-4 py-2.5 rounded-xl border border-sky-200/90 text-xs text-sky-950 shadow-2xs">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
-          <span className="font-semibold text-gray-800">Cập nhật trực tiếp (Real-time)</span>
-          <span className="text-gray-400 hidden sm:inline">•</span>
-          <span className="text-gray-500 text-[11px] hidden sm:inline">
-            Tự động đồng bộ tin mới từ Chợ Tốt &amp; Phongtro123 mỗi 4 phút
+          <span className="font-bold text-sky-950">Cập nhật trực tiếp (Real-time)</span>
+          <span className="text-sky-300 hidden sm:inline">•</span>
+          <span className="text-sky-800 text-[11px] font-medium hidden sm:inline">
+            Tự động đồng bộ tin mới đa nguồn khắp toàn Nha Trang mỗi 4 phút
           </span>
         </div>
 
         <button
           onClick={() => setIsScanModalOpen(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-linear-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-300 font-bold transition-all text-[11px] shadow-2xs hover:shadow-xs cursor-pointer transform active:scale-95"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-linear-to-r from-[#0284C7] to-[#0369A1] hover:from-[#0369A1] hover:to-[#075985] text-white border border-sky-300 font-bold transition-all text-[11px] shadow-xs cursor-pointer transform active:scale-95"
           title="Mở bộ quét tin đa nguồn thời gian thực"
         >
           <span className="text-xs">📡</span>

@@ -224,16 +224,17 @@ export default function RoomCard({
     return (
       <Link
         href={`/phong/${room.id}`}
+        prefetch={true}
         className={`group flex bg-white rounded-2xl transition-all duration-200 overflow-hidden relative ${
           isJustScanned
             ? "border-2 border-emerald-500 bg-emerald-50/20 shadow-md ring-2 ring-emerald-300/60"
             : isCompared
             ? "border-2 border-[#FF7A00] shadow-md ring-2 ring-amber-300/60 bg-amber-50/15"
-            : "border border-[#E8E8E8] hover:border-[#FFBA00] hover:shadow-md"
+            : "border border-sky-100/90 hover:border-[#0284C7] hover:shadow-lg hover:ring-2 hover:ring-sky-100 shadow-2xs"
         }`}
       >
         {/* Thumbnail bên trái */}
-        <div className="relative w-36 sm:w-48 h-32 sm:h-36 bg-[#F4F4F4] shrink-0 overflow-hidden">
+        <div className="relative w-32 xs:w-36 sm:w-48 h-32 sm:h-36 bg-[#F4F4F4] shrink-0 overflow-hidden">
           <Image
             src={img}
             alt={room.title}
@@ -339,11 +340,11 @@ export default function RoomCard({
             </div>
 
             {/* Các nút hành động: So sánh & Lưu tin */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={toggleCompare}
-                className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border transition-colors flex items-center gap-0.5 ${
+                className={`px-2.5 py-1 sm:py-0.5 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-0.5 active:scale-95 cursor-pointer ${
                   isCompared
                     ? "bg-[#FF7A00] text-white border-[#FF7A00]"
                     : "bg-gray-50 hover:bg-amber-100 text-gray-600 border-gray-200"
@@ -357,8 +358,8 @@ export default function RoomCard({
               <button
                 type="button"
                 onClick={toggleSave}
-                className={`p-1.5 rounded-full transition-colors ${
-                  isSaved ? "text-[#D0021B]" : "text-gray-300 hover:text-[#D0021B]"
+                className={`p-2 sm:p-1.5 rounded-full transition-all active:scale-90 cursor-pointer ${
+                  isSaved ? "text-[#D0021B] bg-red-50/80" : "text-gray-400 hover:text-[#D0021B]"
                 }`}
                 title={isSaved ? "Bỏ lưu tin" : "Lưu tin này"}
               >
@@ -377,12 +378,13 @@ export default function RoomCard({
   return (
     <Link
       href={`/phong/${room.id}`}
+      prefetch={true}
       className={`group block bg-white rounded-2xl transition-all duration-200 overflow-hidden relative ${
         isJustScanned
           ? "border-2 border-emerald-500 bg-emerald-50/20 shadow-md ring-2 ring-emerald-300/60"
           : isCompared
           ? "border-2 border-[#FF7A00] shadow-md ring-2 ring-amber-300/60 bg-amber-50/15"
-          : "border border-[#E8E8E8] hover:border-[#FFBA00] hover:shadow-md"
+          : "border border-sky-100/90 hover:border-[#0284C7] hover:shadow-lg hover:ring-2 hover:ring-sky-100 shadow-2xs"
       }`}
     >
       <div className="relative aspect-[4/3] bg-[#F4F4F4] overflow-hidden">

@@ -108,7 +108,7 @@ export default function CompareRoomsModal({
   const handleCopyZaloComparison = () => {
     const landmark = NHA_TRANG_LANDMARKS.find((l) => l.id === targetLandmarkId) || NHA_TRANG_LANDMARKS[0];
     const targetTitle = targetLandmarkId === "custom" && customDest?.name ? customDest.name : landmark.name;
-    let text = `⚖️ BẢNG SO SÁNH PHÒNG TRỌ NHA TRANG (${rooms.length} phòng)\n`;
+    let text = `🌊 BẢNG SO SÁNH PHÒNG TRỌ NHA TRANG - TRỌ BIỂN (${rooms.length} phòng)\n`;
     text += `📍 Mốc di chuyển đối chiếu: ${targetTitle}\n`;
     text += `-------------------------------------------\n`;
 
@@ -124,6 +124,7 @@ export default function CompareRoomsModal({
     });
 
     text += `\n-------------------------------------------\n`;
+    text += `🌐 Tra cứu thêm phòng trọ uy tín tại: https://trobien.vn\n`;
     text += `👉 Cùng xem và chốt phòng nhé!`;
 
     navigator.clipboard.writeText(text);
@@ -433,7 +434,7 @@ export default function CompareRoomsModal({
                         <div className="flex items-center justify-between py-1">
                           <span className="text-gray-500 font-medium text-[11px]">Nguồn bài đăng:</span>
                           <span className="text-gray-700 capitalize font-medium text-[11px]">
-                            {room.sourceSite || "Chợ Tốt"}
+                            {room.sourceSite || "Trọ Biển Nha Trang"}
                           </span>
                         </div>
                       </div>

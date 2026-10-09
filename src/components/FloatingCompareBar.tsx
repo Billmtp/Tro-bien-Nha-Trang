@@ -17,7 +17,7 @@ export default function FloatingCompareBar({
   if (compareRooms.length === 0) return null;
 
   return (
-    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-xl px-3 animate-in slide-in-from-bottom duration-200">
+    <div className="fixed bottom-18 md:bottom-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-xl px-3 animate-in slide-in-from-bottom duration-200">
       <div className="bg-[#222222]/95 backdrop-blur-md text-white rounded-2xl p-3 sm:p-3.5 shadow-2xl border border-amber-400/40 flex items-center justify-between gap-3">
         {/* Left: Room Thumbnails & Info */}
         <div className="flex items-center gap-2.5 min-w-0">

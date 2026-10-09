@@ -119,31 +119,31 @@ export default function SmartRoomAssistant() {
   };
 
   return (
-    <div className="bg-linear-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 rounded-2xl border border-amber-300/60 p-3.5 sm:p-4 mb-4 shadow-2xs">
+    <div className="bg-gradient-to-r from-[#FFFBEB] via-[#FEF3C7] to-[#E0F2FE] rounded-2xl border-2 border-amber-300/90 p-3.5 sm:p-4 mb-4 shadow-sm">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-linear-to-tr from-[#FF7A00] to-amber-400 text-white flex items-center justify-center text-sm shadow-xs font-bold">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#FF7A00] to-amber-400 text-white flex items-center justify-center text-sm shadow-xs font-bold">
             ⚡
           </div>
           <div>
-            <h2 className="text-xs sm:text-sm font-black text-gray-900 flex items-center gap-1.5">
+            <h2 className="text-xs sm:text-sm font-black text-slate-900 flex items-center gap-1.5">
               <span>Trợ Lý Tìm Nhanh Phòng Trọ Nha Trang</span>
-              <span className="text-[10px] bg-[#FF7A00] text-white px-1.5 py-0.2 rounded-full font-bold uppercase tracking-wider">
-                Smart
+              <span className="text-[10px] bg-[#0284C7] text-white px-2 py-0.2 rounded-full font-bold uppercase tracking-wider shadow-2xs">
+                Smart AI
               </span>
             </h2>
           </div>
         </div>
 
-        <span className="text-[11px] text-gray-500 hidden sm:inline">
+        <span className="text-[11px] text-amber-950 font-medium hidden sm:inline">
           Gõ tự nhiên theo nhu cầu hoặc chọn gợi ý bên dưới
         </span>
       </div>
 
       {/* Natural Search Input Form */}
       <form onSubmit={handleNaturalSearch} className="relative mb-3">
-        <div className="flex items-center bg-white rounded-xl pl-3.5 pr-1.5 py-1.5 border border-amber-200 focus-within:border-[#FF7A00] focus-within:ring-2 focus-within:ring-amber-200/50 shadow-xs transition-all">
+        <div className="flex items-center bg-white rounded-xl pl-3.5 pr-1.5 py-1.5 border border-amber-300 focus-within:border-[#0284C7] focus-within:ring-2 focus-within:ring-sky-200/60 shadow-xs transition-all">
           <span className="text-gray-400 text-sm mr-2 shrink-0">🔍</span>
           <input
             type="text"

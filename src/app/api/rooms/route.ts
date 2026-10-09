@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { invalidateRoomCache } from "@/lib/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -63,12 +64,19 @@ export async function GET(request: Request) {
     prisma.room.count({ where }),
   ]);
 
-  return NextResponse.json({
-    rooms,
-    total,
-    page,
-    totalPages: Math.ceil(total / limit),
-  });
+  return NextResponse.json(
+    {
+      rooms,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    },
+    {
+      headers: {
+        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+      },
+    }
+  );
 }
 
 export async function POST(request: Request) {
@@ -135,6 +143,8 @@ export async function POST(request: Request) {
         userId: user?.id || null,
       },
     });
+
+    invalidateRoomCache(room.id);
 
     return NextResponse.json({
       success: true,

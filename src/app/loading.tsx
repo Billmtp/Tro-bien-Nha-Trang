@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 const NHA_TRANG_TIPS = [
   "🌴 Đang rà soát phòng trọ tại các phường: Vĩnh Hải, Vĩnh Phước, Lộc Thọ, Phước Hải...",
-  "📡 Đang kết nối dữ liệu trực tiếp từ 6 Hội nhóm Facebook Nha Trang & Chợ Tốt...",
+  "📡 Đang kết nối dữ liệu trực tiếp từ các nguồn phòng trọ uy tín toàn Nha Trang...",
   "🛡️ Hệ thống tự động lọc tin trùng lặp và xác minh số điện thoại chính chủ...",
   "💡 Mẹo: Những bài đăng có Tích Xanh đã được xác thực danh tính qua OTP SMS hoặc Gmail.",
   "🌊 Khu vực gần biển Trần Phú & Đại học Nha Trang đang có nhiều phòng giá tốt mới cập nhật...",
@@ -22,23 +22,21 @@ export default function Loading() {
 
   return (
     <div className="min-h-screen bg-[#F4F4F4]">
-      {/* Header Skeleton */}
-      <div className="bg-[#FFBA00] sticky top-0 z-40 border-b border-[#EAA800] px-4 py-2.5">
+      {/* Header Skeleton Trọ Biển */}
+      <div className="bg-white/95 sticky top-0 z-40 border-b border-sky-100 px-4 py-2.5">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="bg-[#222222] text-[#FFBA00] font-black text-lg px-2.5 py-1 rounded">
-              CHO<span className="text-white ml-0.5">TOT</span>
-              <span className="text-[10px] ml-1.5 px-1 bg-[#FF7A00] text-white rounded font-bold uppercase">
-                Trọ Nha Trang
-              </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xl">🌊</span>
+              <span className="text-base font-black text-sky-800 tracking-tight">Trọ Biển Nha Trang</span>
             </div>
           </div>
           <div className="flex-1 max-w-xl hidden sm:block">
-            <div className="h-9 bg-white/70 rounded-full animate-pulse"></div>
+            <div className="h-9 bg-sky-50 rounded-full animate-pulse border border-sky-100"></div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-18 h-8 bg-white/50 rounded-full animate-pulse"></div>
-            <div className="w-24 h-8 bg-[#FF7A00]/70 rounded-full animate-pulse"></div>
+            <div className="w-18 h-8 bg-sky-100/60 rounded-full animate-pulse"></div>
+            <div className="w-24 h-8 bg-linear-to-r from-[#FF7A00] to-[#FF5500] opacity-80 rounded-full animate-pulse"></div>
           </div>
         </div>
       </div>
@@ -46,19 +44,19 @@ export default function Loading() {
       {/* Main Content Area */}
       <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 space-y-4">
         {/* Engaging Central Interactive Card */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-amber-200/80 text-center relative overflow-hidden">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-sky-200/80 text-center relative overflow-hidden">
           {/* Background subtle coastal waves */}
-          <div className="absolute inset-0 bg-linear-to-b from-amber-50/50 via-white to-orange-50/30 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-linear-to-b from-sky-50/60 via-white to-orange-50/30 pointer-events-none"></div>
 
           <div className="relative z-10 max-w-lg mx-auto flex flex-col items-center">
             {/* Animated Radar Scanning Element */}
             <div className="relative mb-5">
               {/* Outer pulsing ripples */}
-              <div className="absolute -inset-4 rounded-full bg-amber-400/20 animate-ping"></div>
+              <div className="absolute -inset-4 rounded-full bg-sky-400/20 animate-ping"></div>
               <div className="absolute -inset-2 rounded-full bg-[#FF7A00]/20 animate-pulse"></div>
 
               {/* Central Radar Circle */}
-              <div className="relative w-20 h-20 rounded-full bg-linear-to-tr from-[#FF7A00] to-[#FFBA00] flex items-center justify-center text-white text-3xl shadow-lg border-3 border-white">
+              <div className="relative w-20 h-20 rounded-full bg-linear-to-tr from-[#0284C7] to-[#FF7A00] flex items-center justify-center text-white text-3xl shadow-lg border-3 border-white">
                 <span className="animate-bounce">🏠</span>
               </div>
 
@@ -86,12 +84,12 @@ export default function Loading() {
             </p>
 
             {/* Smooth Progress Bar */}
-            <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden mb-4 shadow-inner">
-              <div className="h-full bg-linear-to-r from-[#FFBA00] via-[#FF7A00] to-[#E65100] rounded-full animate-[indeterminate_1.5s_infinite_linear]"></div>
+            <div className="w-full bg-gray-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden mb-4 shadow-inner relative">
+              <div className="h-full w-2/5 bg-linear-to-r from-[#FFBA00] via-[#FF7A00] to-[#E65100] rounded-full animate-indeterminate"></div>
             </div>
 
             {/* Rotating Nha Trang Discovery Tip */}
-            <div className="bg-amber-50/80 border border-amber-200/90 rounded-xl px-4 py-2.5 text-xs text-amber-900 font-medium transition-all duration-300 min-h-[46px] flex items-center justify-center">
+            <div className="bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200/90 dark:border-amber-800/60 rounded-xl px-4 py-2.5 text-xs text-amber-900 dark:text-amber-200 font-medium transition-all duration-300 min-h-[46px] flex items-center justify-center">
               <span>{NHA_TRANG_TIPS[tipIndex]}</span>
             </div>
           </div>
@@ -132,23 +130,6 @@ export default function Loading() {
         </div>
       </main>
 
-      {/* Tailwind indeterminate animation style */}
-      <style jsx>{`
-        @keyframes indeterminate {
-          0% {
-            margin-left: 0%;
-            width: 30%;
-          }
-          50% {
-            margin-left: 40%;
-            width: 60%;
-          }
-          100% {
-            margin-left: 100%;
-            width: 10%;
-          }
-        }
-      `}</style>
     </div>
   );
 }

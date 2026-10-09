@@ -55,8 +55,8 @@ export default function CostCalculatorWidget({
           </div>
         </div>
 
-        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-          Chợ Tốt Tool
+        <span className="text-[10px] font-bold uppercase tracking-wider text-sky-800 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
+          Trọ Biển Tool
         </span>
       </div>
 

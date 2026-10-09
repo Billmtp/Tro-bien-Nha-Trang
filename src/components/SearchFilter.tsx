@@ -119,9 +119,9 @@ export default function SearchFilter({
   );
 
   return (
-    <div className="bg-white rounded-2xl shadow-xs border border-[#E8E8E8] p-3 md:p-4 mb-4">
+    <div className="bg-white rounded-2xl shadow-sm border-t-4 border-t-[#0284C7] border-x border-b border-sky-200/80 p-3 md:p-4 mb-4">
       {/* Top Filter Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#F0F0F0]">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-sky-100">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           {/* Khu vực Dropdown */}
           <div className="relative">
@@ -131,7 +131,7 @@ export default function SearchFilter({
                 setDistrict(e.target.value);
                 applyFilters(e.target.value, undefined, undefined);
               }}
-              className="bg-[#F4F4F4] hover:bg-[#EAEAEA] text-[#222222] text-xs md:text-sm font-medium py-2 px-3 rounded-xl border border-transparent focus:border-[#FFBA00] outline-none cursor-pointer transition-colors"
+              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {DISTRICTS.map((d) => (
                 <option key={d} value={d}>
@@ -150,7 +150,7 @@ export default function SearchFilter({
                 setPriceIndex(idx);
                 applyFilters(undefined, idx, undefined);
               }}
-              className="bg-[#F4F4F4] hover:bg-[#EAEAEA] text-[#222222] text-xs md:text-sm font-medium py-2 px-3 rounded-xl border border-transparent focus:border-[#FFBA00] outline-none cursor-pointer transition-colors"
+              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {currentPriceRanges.map((r, i) => (
                 <option key={i} value={i}>
@@ -168,7 +168,7 @@ export default function SearchFilter({
                 setSort(e.target.value);
                 applyFilters(undefined, undefined, e.target.value, undefined);
               }}
-              className="bg-[#F4F4F4] hover:bg-[#EAEAEA] text-[#222222] text-xs md:text-sm font-medium py-2 px-3 rounded-xl border border-transparent focus:border-[#FFBA00] outline-none cursor-pointer transition-colors"
+              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {SORTS.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -186,7 +186,7 @@ export default function SearchFilter({
                 setSite(e.target.value);
                 applyFilters(undefined, undefined, undefined, e.target.value);
               }}
-              className="bg-[#F4F4F4] hover:bg-[#EAEAEA] text-[#222222] text-xs md:text-sm font-medium py-2 px-3 rounded-xl border border-transparent focus:border-[#FFBA00] outline-none cursor-pointer transition-colors"
+              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {SOURCES.map((sc) => (
                 <option key={sc.value} value={sc.value}>
@@ -257,15 +257,15 @@ export default function SearchFilter({
 
         {/* View Mode Switcher (List vs Grid vs Map) */}
         {onViewModeChange && (
-          <div className="flex items-center gap-1 bg-[#F4F4F4] p-1 rounded-xl shrink-0">
+          <div className="flex items-center gap-1 bg-sky-100/80 p-1 rounded-xl shrink-0 border border-sky-200/80">
             <button
               onClick={() => onViewModeChange("list")}
               className={`p-1.5 px-2 rounded-lg flex items-center justify-center transition-all ${
                 viewMode === "list"
-                  ? "bg-white text-[#FF7A00] shadow-xs font-bold"
-                  : "text-[#777777] hover:text-black"
+                  ? "bg-white text-[#0284C7] shadow-xs font-bold"
+                  : "text-slate-600 hover:text-sky-900"
               }`}
-              title="Dạng danh sách (Chợ Tốt)"
+              title="Dạng danh sách chi tiết"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -275,8 +275,8 @@ export default function SearchFilter({
               onClick={() => onViewModeChange("grid")}
               className={`p-1.5 px-2 rounded-lg flex items-center justify-center transition-all ${
                 viewMode === "grid"
-                  ? "bg-white text-[#FF7A00] shadow-xs font-bold"
-                  : "text-[#777777] hover:text-black"
+                  ? "bg-white text-[#0284C7] shadow-xs font-bold"
+                  : "text-slate-600 hover:text-sky-900"
               }`}
               title="Dạng lưới"
             >
@@ -288,8 +288,8 @@ export default function SearchFilter({
               onClick={() => onViewModeChange("map")}
               className={`p-1.5 px-2.5 rounded-lg flex items-center gap-1 justify-center transition-all ${
                 viewMode === "map"
-                  ? "bg-white text-[#FF7A00] shadow-xs font-bold"
-                  : "text-[#777777] hover:text-black"
+                  ? "bg-white text-[#0284C7] shadow-xs font-bold"
+                  : "text-slate-600 hover:text-sky-900"
               }`}
               title="Bản đồ phòng trọ Nha Trang"
             >
@@ -302,7 +302,9 @@ export default function SearchFilter({
 
       {/* Quick Location Pills */}
       <div className="pt-2.5 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none text-xs">
-        <span className="text-[#888888] font-medium shrink-0 mr-1">Khu vực nổi bật:</span>
+        <span className="text-sky-900 font-bold shrink-0 mr-1 flex items-center gap-1">
+          <span>📍</span> Khu vực nổi bật:
+        </span>
         {["Tất cả khu vực", "Vĩnh Hải", "Vĩnh Phước", "Phước Long", "Lộc Thọ", "Ngọc Hiệp", "Vĩnh Thọ"].map((d) => {
           const active = district === d;
           return (
@@ -312,10 +314,10 @@ export default function SearchFilter({
                 setDistrict(d);
                 applyFilters(d, undefined, undefined);
               }}
-              className={`px-2.5 py-1 rounded-full text-xs transition-colors shrink-0 ${
+              className={`px-3 py-1 rounded-full text-xs transition-all shrink-0 cursor-pointer ${
                 active
-                  ? "bg-[#FFBA00] text-[#222222] font-bold shadow-xs"
-                  : "bg-[#F4F4F4] text-[#555555] hover:bg-[#EAEAEA]"
+                  ? "bg-linear-to-r from-[#0284C7] to-[#0369A1] text-white font-black shadow-xs scale-105"
+                  : "bg-sky-50 text-slate-700 hover:bg-sky-100 hover:text-sky-900 border border-sky-200/70 font-semibold"
               }`}
             >
               {d}

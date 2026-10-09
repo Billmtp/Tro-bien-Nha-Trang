@@ -143,7 +143,7 @@ export default function SavedRoomsDrawer({
     const textLines = savedRooms.map((r, idx) => {
       return `${idx + 1}. ${r.title}\n- Giá: ${formatPrice(r.price)} | Khu vực: ${r.district || "Nha Trang"}\n- SĐT: ${extractPhone(r.contact)}\n- Xem chi tiết: ${window.location.origin}/phong/${r.id}`;
     });
-    const content = `📋 DANH SÁCH PHÒNG TRỌ NHA TRANG ĐÃ LƯU (${savedRooms.length} phòng):\n\n${textLines.join("\n\n")}\n\n(Nguồn: Chợ Tốt Trọ Nha Trang)`;
+    const content = `🌊 DANH SÁCH PHÒNG TRỌ NHA TRANG ĐÃ LƯU (${savedRooms.length} phòng):\n\n${textLines.join("\n\n")}\n\n(Nguồn: Trọ Biển Nha Trang - trobien.vn)`;
 
     navigator.clipboard.writeText(content).then(() => {
       setCopiedAlert(true);

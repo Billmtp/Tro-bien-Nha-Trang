@@ -35,7 +35,7 @@ export default function UnverifiedFloatingAlert({
   }
 
   return (
-    <aside aria-label="Thông báo xác thực tài khoản" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 select-none max-w-[calc(100vw-2rem)]">
+    <aside aria-label="Thông báo xác thực tài khoản" className="fixed bottom-18 right-4 sm:bottom-6 sm:right-6 z-40 select-none max-w-[calc(100vw-2rem)]">
       {isMinimized ? (
         /* Minimized State: Floating Pulsing Warning Button */
         <button

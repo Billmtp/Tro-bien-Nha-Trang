@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { invalidateRoomCache } from "@/lib/cache";
 import { scrapePhoTro123, scrapeMogi, scrapeNhaTot } from "@/lib/scrapers";
 
 export const maxDuration = 60;
@@ -78,6 +79,10 @@ export async function POST(request: Request) {
       where: { updatedAt: { lt: sevenDaysAgo }, isActive: true },
       data: { isActive: false },
     });
+
+    if (allRooms.length > 0) {
+      invalidateRoomCache();
+    }
 
     return NextResponse.json({
       success: true,

@@ -69,10 +69,10 @@ export default function ScanRoomsModal({
         await new Promise((r) => setTimeout(r, 500));
         if (!isMounted) return;
         setProgress(30);
-        setCurrentStepText("Đang kết nối Chợ Tốt Nha Trang, Phongtro123 & Mogi...");
+        setCurrentStepText("Đang kết nối đa nguồn dữ liệu phòng trọ Nha Trang...");
         setLogs((prev) => [
           ...prev,
-          "📡 Đang kết nối Chợ Tốt Nha Trang (region 7044), Phongtro123 & Mogi...",
+          "📡 Đang kích hoạt Radar quét phòng trọ toàn thành phố Nha Trang...",
         ]);
 
         // Step 2

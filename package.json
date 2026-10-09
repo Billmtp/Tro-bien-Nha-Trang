@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "node node_modules/prisma/build/index.js generate",
+    "postinstall": "prisma generate",
     "db:push": "node node_modules/prisma/build/index.js db push",
     "db:studio": "node node_modules/prisma/build/index.js studio"
   },

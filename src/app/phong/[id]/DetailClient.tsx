@@ -262,12 +262,14 @@ export default function DetailClient({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 pb-24 md:pb-6">
       {/* Breadcrumb */}
       <nav className="text-xs text-[#777777] mb-3 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
-        <Link href="/" className="hover:text-[#FF7A00]">Trang chủ</Link>
+        <Link href="/" className="hover:text-[#0284C7]">Trang chủ</Link>
         <span>›</span>
-        <Link href={`/?district=${encodeURIComponent(room.district || "")}`} className="hover:text-[#FF7A00]">
+        <Link href="/" className="hover:text-[#0284C7] font-semibold text-sky-800">Trọ Biển Nha Trang</Link>
+        <span>›</span>
+        <Link href={`/?district=${encodeURIComponent(room.district || "")}`} className="hover:text-[#0284C7]">
           {room.district || "Nha Trang"}
         </Link>
         <span>›</span>
@@ -564,12 +566,12 @@ export default function DetailClient({
               </div>
             </div>
 
-          {/* Cảnh báo an toàn Chợ Tốt */}
-          <div className="bg-[#FFF9E6] border border-[#FFE8A3] rounded-2xl p-4 text-xs text-[#8A6000] flex gap-3 items-start">
-            <span className="text-xl">⚠️</span>
+          {/* Cảnh báo an toàn Trọ Biển Nha Trang */}
+          <div className="bg-sky-50/80 border border-sky-200/90 rounded-2xl p-4 text-xs text-sky-950 flex gap-3 items-start shadow-2xs">
+            <span className="text-xl shrink-0">🛡️</span>
             <div>
-              <strong className="font-bold block mb-0.5">Lưu ý an toàn từ Chợ Tốt:</strong>
-              <p className="leading-relaxed text-[11px]">
+              <strong className="font-bold block mb-0.5 text-sky-900">Lưu ý an toàn từ Trọ Biển Nha Trang:</strong>
+              <p className="leading-relaxed text-[11px] text-sky-900/90">
                 KHÔNG chuyển khoản hoặc đặt cọc tiền giữ phòng khi chưa đến xem phòng trực tiếp và chưa ký kết hợp đồng rõ ràng. Cẩn thận với các phòng trọ có giá thuê quá rẻ so với mặt bằng chung.
               </p>
             </div>
@@ -586,10 +588,10 @@ export default function DetailClient({
 
         {/* Cột Phải: Thông tin người bán & Liên hệ (Sticky Card) */}
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-[#E8E8E8] p-5 shadow-xs sticky top-20">
+          <div className="bg-white rounded-2xl border-t-4 border-t-[#0284C7] border-x border-b border-sky-200/80 p-5 shadow-sm sticky top-20">
             {/* Người đăng card */}
             <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-[#FFBA00] text-[#222222] font-black text-lg flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-full bg-linear-to-tr from-[#0284C7] to-[#0369A1] text-white font-black text-lg flex items-center justify-center shrink-0 shadow-xs">
                 {room.contact ? room.contact.charAt(0).toUpperCase() : "C"}
               </div>
               <div className="min-w-0">
@@ -608,7 +610,7 @@ export default function DetailClient({
               {/* Nút Hiện SĐT / Gọi ngay */}
               <button
                 onClick={() => setShowPhone(!showPhone)}
-                className="w-full py-3 px-4 rounded-xl font-bold text-sm bg-[#26A69A] hover:bg-[#1E8E83] text-white flex items-center justify-center gap-2 shadow-sm transition-all transform active:scale-98"
+                className="w-full py-3 px-4 rounded-xl font-bold text-sm bg-linear-to-r from-[#FF7A00] to-[#FF5500] hover:from-[#E66E00] hover:to-[#E04400] text-white flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 transition-all transform active:scale-98 cursor-pointer"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -801,6 +803,47 @@ export default function DetailClient({
         onClose={() => setIsCustomModalOpen(false)}
         onSelectDestination={(dest) => setCustomDest(dest)}
       />
+
+      {/* ================= MOBILE STICKY CONTACT BAR ================= */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-[0_-6px_25px_rgba(0,0,0,0.12)] p-2.5 px-3 flex items-center gap-2">
+        {/* Nút Lưu tin */}
+        <button
+          type="button"
+          onClick={toggleSave}
+          className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all shrink-0 cursor-pointer ${
+            isSaved
+              ? "border-[#D0021B] bg-rose-50 text-[#D0021B] dark:bg-rose-950/40"
+              : "border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-300 bg-gray-50 dark:bg-slate-800/80"
+          }`}
+          title={isSaved ? "Đã lưu tin" : "Lưu tin"}
+        >
+          <svg className="w-5 h-5" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth={isSaved ? 0 : 2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </button>
+
+        {/* Nút Chat Zalo */}
+        <a
+          href={`https://zalo.me/${phone.replace(/\s+/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 h-11 rounded-xl font-bold text-xs sm:text-sm bg-[#0068FF] hover:bg-[#0052CC] text-white flex items-center justify-center gap-1.5 shadow-sm active:scale-98 transition-all"
+        >
+          <span className="text-sm">💬</span>
+          <span>Chat Zalo</span>
+        </a>
+
+        {/* Nút Gọi ngay */}
+        <a
+          href={`tel:${phone.replace(/\s+/g, "")}`}
+          className="flex-1 h-11 rounded-xl font-extrabold text-xs sm:text-sm bg-linear-to-r from-[#FF7A00] to-[#FF5500] hover:from-[#E66E00] hover:to-[#E04400] text-white flex items-center justify-center gap-1.5 shadow-md shadow-orange-500/25 active:scale-98 transition-all"
+        >
+          <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          <span>Gọi ngay</span>
+        </a>
+      </div>
     </div>
   );
 }

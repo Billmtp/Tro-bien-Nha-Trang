@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import CaptchaVerification from "./CaptchaVerification";
 
 export default function AuthModal({
@@ -62,11 +63,16 @@ export default function AuthModal({
           ✕
         </button>
 
-        {/* Chotot Brand Icon */}
+        {/* Brand Logo Trọ Biển */}
         <div className="text-center mb-5">
-          <div className="bg-[#222222] text-[#FFBA00] font-black text-xl px-3 py-1 rounded inline-block tracking-tight mb-2">
-            <span>CHO</span>
-            <span className="text-white ml-0.5">TOT</span>
+          <div className="flex justify-center mb-2">
+            <Image
+              src="/tro-bien-logo.png"
+              alt="Trọ Biển Nha Trang"
+              width={150}
+              height={50}
+              className="h-11 w-auto object-contain"
+            />
           </div>
           <h3 className="font-bold text-lg text-[#222222]">
             {mode === "login" ? "Đăng nhập tài khoản" : "Tạo tài khoản mới"}
@@ -74,7 +80,7 @@ export default function AuthModal({
           <p className="text-xs text-gray-500 mt-0.5">
             {mode === "login"
               ? "Để đăng tin và quản lý phòng trọ của bạn"
-              : "Tham gia cộng đồng phòng trọ Nha Trang"}
+              : "Tham gia cộng đồng Trọ Biển Nha Trang"}
           </p>
         </div>
 
@@ -85,7 +91,7 @@ export default function AuthModal({
             onClick={() => { setMode("login"); setError(""); }}
             className={`flex-1 py-2 text-xs font-bold transition-colors border-b-2 ${
               mode === "login"
-                ? "border-[#FFBA00] text-[#222222]"
+                ? "border-[#0284C7] text-[#0284C7]"
                 : "border-transparent text-gray-400 hover:text-gray-600"
             }`}
           >
@@ -163,14 +169,14 @@ export default function AuthModal({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl font-bold text-sm bg-[#FFBA00] hover:bg-[#EAA800] text-[#222222] transition-colors shadow-sm mt-2 disabled:opacity-50"
+            className="w-full py-2.5 rounded-xl font-bold text-sm bg-linear-to-r from-[#FF7A00] to-[#FF5500] hover:from-[#E66E00] hover:to-[#E04400] text-white transition-all shadow-md shadow-orange-500/20 mt-2 disabled:opacity-50 cursor-pointer"
           >
             {loading ? "Đang xử lý..." : mode === "login" ? "ĐĂNG NHẬP" : "ĐĂNG KÝ NGAY"}
           </button>
         </form>
 
         <div className="mt-4 text-center text-xs text-gray-400">
-          Bằng việc tiếp tục, bạn đồng ý với Quy chế hoạt động của Chợ Tốt Trọ Nha Trang.
+          Bằng việc tiếp tục, bạn đồng ý với Quy chế hoạt động của Trọ Biển Nha Trang.
         </div>
       </div>
     </div>

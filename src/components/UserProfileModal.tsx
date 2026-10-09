@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { showAppAlert } from "./AppNotificationModal";
+import { useTheme } from "./ThemeManager";
 
 interface UserProfile {
   id: number;
@@ -68,6 +69,7 @@ export default function UserProfileModal({
   onOpenMyRooms: () => void;
   onUserUpdated?: (user: UserProfile) => void;
 }) {
+  const { setIsCustomizerOpen } = useTheme();
   const [activeTab, setActiveTab] = useState<"overview" | "edit">("overview");
   const [user, setUser] = useState<UserProfile>(initialUser);
   const [stats, setStats] = useState<UserStats>({
@@ -220,9 +222,9 @@ export default function UserProfileModal({
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="text-xl">👤</span>
-            <span className="text-sm font-semibold tracking-wide uppercase text-amber-100">
-              Hồ Sơ Thành Viên Chợ Tốt Nha Trang
+            <span className="text-xl">🌊</span>
+            <span className="text-sm font-semibold tracking-wide uppercase text-sky-100">
+              Hồ Sơ Thành Viên - Trọ Biển Nha Trang
             </span>
           </div>
         </div>
@@ -289,6 +291,15 @@ export default function UserProfileModal({
 
             {/* Quick action buttons */}
             <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsCustomizerOpen(true)}
+                className="px-3 py-1.5 rounded-xl border border-sky-300 hover:border-sky-500 bg-sky-50 hover:bg-sky-100 text-xs font-bold text-sky-800 transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                title="Tùy biến 5 tông màu biển Nha Trang, Dark mode & giao diện"
+              >
+                <span>🎨</span>
+                <span className="hidden sm:inline">Giao diện & Theme</span>
+              </button>
               <button
                 onClick={() => setActiveTab(activeTab === "overview" ? "edit" : "overview")}
                 className="px-3.5 py-1.5 rounded-xl border border-gray-300 hover:border-amber-500 bg-white hover:bg-amber-50 text-xs font-bold text-gray-700 transition-colors flex items-center gap-1 shadow-2xs"
@@ -662,6 +673,26 @@ export default function UserProfileModal({
                 </div>
               </div>
 
+              {/* 5. Tùy biến giao diện & Dark Mode */}
+              <div className="pt-2 border-t border-gray-100">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-linear-to-r from-sky-50/80 via-blue-50/50 to-indigo-50/40 border border-sky-200/80 gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl shrink-0">🎨</span>
+                    <div>
+                      <h5 className="text-xs font-bold text-slate-900">Giao diện & Chế độ Màu sắc (Theme / Dark Mode)</h5>
+                      <p className="text-[11px] text-slate-500">5 bộ màu miền biển Nha Trang, bật/tắt Dark Mode, chỉnh mật độ hiển thị và trợ năng.</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsCustomizerOpen(true)}
+                    className="px-3.5 py-1.5 bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-bold rounded-lg shadow-2xs transition-colors shrink-0 cursor-pointer self-start sm:self-auto"
+                  >
+                    Mở bảng tùy biến ➜
+                  </button>
+                </div>
+              </div>
+
               {/* Submit Buttons */}
               <div className="pt-2 flex items-center justify-end gap-2">
                 <button
@@ -688,7 +719,7 @@ export default function UserProfileModal({
         <div className="px-5 sm:px-6 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500 shrink-0">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Hệ thống Chợ Tốt Trọ Nha Trang</span>
+            <span>Hệ thống Trọ Biển Nha Trang</span>
           </div>
 
           <button

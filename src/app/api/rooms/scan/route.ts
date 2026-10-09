@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { invalidateRoomCache } from "@/lib/cache";
 import { scrapePhoTro123, scrapeMogi, scrapeNhaTot, scrapeNhaTotSales, RoomData } from "@/lib/scrapers";
 
 export const dynamic = "force-dynamic";
@@ -137,6 +138,11 @@ export async function POST(request: Request) {
           isActive: true,
         },
       });
+    }
+
+    // Xóa cache ngay lập tức nếu có phòng mới để hiển thị tức thì trên web
+    if (newlyCreatedRecords.length > 0) {
+      invalidateRoomCache();
     }
 
     return NextResponse.json({

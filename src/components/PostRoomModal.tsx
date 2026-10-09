@@ -385,14 +385,14 @@ Môi trường an ninh, sạch sẽ, khu dân cư văn minh thuận tiện đi l
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-[#FFFBE6] rounded-t-2xl shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-sky-100 bg-sky-50/70 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-2.5">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#FF7A00] animate-pulse" />
+            <span className="w-3.5 h-3.5 rounded-full bg-[#0284C7] animate-pulse" />
             <div>
-              <h3 className="font-black text-base sm:text-lg text-[#222222]">
-                Đăng Tin Mới - Chợ Tốt Nha Trang
+              <h3 className="font-black text-base sm:text-lg text-sky-950">
+                Đăng Tin Mới - Trọ Biển Nha Trang
               </h3>
-              <p className="text-[11px] text-gray-500">
+              <p className="text-[11px] text-sky-700">
                 Đăng tin miễn phí, cập nhật ngay lập tức đến người tìm trọ
               </p>
             </div>

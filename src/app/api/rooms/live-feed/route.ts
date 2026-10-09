@@ -12,15 +12,17 @@ export async function GET(request: Request) {
     const since = sinceStr ? new Date(sinceStr) : new Date(Date.now() - 60_000);
 
     // Đếm số tin mới được đăng / cào sau mốc `since`
-    const [newCount, latestRooms, total] = await Promise.all([
-      prisma.room.count({
-        where: {
-          category,
-          isActive: true,
-          scrapedAt: { gt: since },
-        },
-      }),
-      prisma.room.findMany({
+    const newCount = await prisma.room.count({
+      where: {
+        category,
+        isActive: true,
+        scrapedAt: { gt: since },
+      },
+    });
+
+    let latestRooms: any[] = [];
+    if (newCount > 0) {
+      latestRooms = await prisma.room.findMany({
         where: {
           category,
           isActive: true,
@@ -35,18 +37,14 @@ export async function GET(request: Request) {
           district: true,
           scrapedAt: true,
         },
-      }),
-      prisma.room.count({
-        where: { category, isActive: true },
-      }),
-    ]);
+      });
+    }
 
     return NextResponse.json({
       success: true,
       category,
       newCount,
       latestRooms,
-      total,
       serverTime: new Date().toISOString(),
       isScrapingNow: false,
     });

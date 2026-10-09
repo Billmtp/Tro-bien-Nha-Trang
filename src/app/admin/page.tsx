@@ -302,7 +302,7 @@ export default function AdminPage() {
 
           <div className="pt-2 text-center">
             <Link href="/" className="text-xs text-gray-500 hover:text-gray-900 hover:underline">
-              ← Quay lại trang chủ Chợ Tốt Trọ Nha Trang
+              ← Quay lại trang chủ Trọ Biển Nha Trang
             </Link>
           </div>
         </div>
@@ -1094,7 +1094,7 @@ export default function AdminPage() {
                 <span>Cấu Hình Quy Trình Kiểm Duyệt &amp; Bảo Mật</span>
               </h3>
               <p className="text-xs text-gray-500 mt-0.5">
-                Thiết lập các quy tắc tự động cho hệ thống Chợ Tốt Trọ Nha Trang.
+                Thiết lập các quy tắc tự động cho hệ thống Trọ Biển Nha Trang.
               </p>
             </div>
 

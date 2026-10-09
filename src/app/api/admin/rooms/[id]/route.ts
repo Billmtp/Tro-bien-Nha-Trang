@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { invalidateRoomCache } from "@/lib/cache";
 
 export async function PATCH(
   request: Request,
@@ -61,6 +62,7 @@ export async function PATCH(
       return NextResponse.json({ error: "Hành động không hợp lệ" }, { status: 400 });
     }
 
+    invalidateRoomCache(roomId);
     return NextResponse.json({ success: true, room: updated });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Lỗi khi cập nhật bài đăng" }, { status: 500 });
@@ -87,6 +89,7 @@ export async function DELETE(
     }
 
     await prisma.room.delete({ where: { id: roomId } });
+    invalidateRoomCache(roomId);
     return NextResponse.json({ success: true, message: "Đã xóa bài đăng thành công." });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Lỗi khi xóa bài đăng" }, { status: 500 });

@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 export const revalidate = 3600; // Cập nhật sitemap mỗi 1 giờ
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://chotot-nhatrang.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://trobien.vn";
 
   try {
     const rooms = await prisma.room.findMany({

@@ -11,6 +11,7 @@ import FloatingCompareBar from "./FloatingCompareBar";
 import CompareRoomsModal, { CompareRoomItem } from "./CompareRoomsModal";
 import { detectOwnerType } from "@/lib/nhatrang-helpers";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Room {
   id: number;
@@ -136,45 +137,71 @@ export default function RoomListClient({
   }, [rooms, ownerOnly]);
 
   return (
-    <div className="min-h-screen bg-[#F4F4F4]">
+    <div className="min-h-screen bg-[#EEF6FB] pb-16 md:pb-0">
       {/* Header Chợ Tốt */}
       <HeaderChotot savedCount={savedCount} />
 
       <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4">
-        {/* Banner giới thiệu kiểu Chợ Tốt */}
-        <div className="bg-gradient-to-r from-[#FFF4D6] to-[#FFE8A3] rounded-2xl p-4 sm:p-5 mb-4 border border-[#FFDC73] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`text-white text-[11px] font-black px-2 py-0.5 rounded-full uppercase ${category === "roommate" ? "bg-rose-600" : "bg-[#FF7A00]"}`}>
-                {category === "sale" ? "Nhà Đất Nha Trang" : category === "roommate" ? "🤝 Tìm Bạn Ở Ghép" : "Phòng Trọ Nha Trang"}
-              </span>
-              <span className="text-xs text-[#666666]">Cập nhật liên tục 24/7</span>
-            </div>
-            <h1 className="text-base sm:text-lg font-bold text-[#222222]">
-              {category === "sale"
-                ? "Mua bán nhà đất, nhà phố, căn hộ Nha Trang mới nhất 2026"
-                : category === "roommate"
-                ? "Tìm bạn ở ghép Nha Trang - Tiết kiệm chi phí, an toàn & vui vẻ"
-                : "Tìm phòng trọ, nhà trọ giá rẻ tại Nha Trang mới nhất 2026"}
-            </h1>
-            <p className="text-xs text-[#555555] mt-0.5">
-              {category === "sale"
-                ? "Tổng hợp nhà mặt tiền, nhà hẻm, căn hộ, đất nền Nha Trang từ Chợ Tốt & Nhà Tốt. 100% ảnh thật, liên hệ chính chủ."
-                : category === "roommate"
-                ? "Kết nối sinh viên ĐH Nha Trang, CĐ Sư Phạm, nhân viên văn phòng tìm bạn ở cùng chia sẻ tiền phòng, điện nước an toàn."
-                : "Tổng hợp từ Chợ Tốt, Nhà Tốt, Google Maps, Nhóm Facebook Nha Trang & Phongtro123. Đầy đủ hình ảnh, số điện thoại chủ nhà."}
-            </p>
-          </div>
+        {/* Banner giới thiệu Trọ Biển Nha Trang */}
+        <div className="relative bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A4D68] text-white rounded-3xl p-5 sm:p-6 mb-4 shadow-xl shadow-sky-900/15 border border-sky-400/40 overflow-hidden">
+          {/* Decorative glowing ambient beach lights */}
+          <div className="absolute -right-12 -top-12 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute right-1/4 -bottom-16 w-56 h-56 bg-teal-400/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div className="absolute left-1/3 -top-10 w-40 h-40 bg-orange-500/20 rounded-full blur-2xl pointer-events-none"></div>
 
-          <div className="flex items-center gap-4 text-xs font-semibold shrink-0 bg-white/80 backdrop-blur-xs px-3.5 py-2 rounded-xl border border-amber-200">
-            <div>
-              <span className="text-base font-extrabold text-[#D0021B] block">{stats.total}</span>
-              <span className="text-gray-500 text-[11px]">{category === "sale" ? "Tin đang bán" : category === "roommate" ? "Tin ở ghép" : "Tin đang thuê"}</span>
+          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className={`text-white text-[11px] font-black px-3 py-0.5 rounded-full uppercase shadow-sm tracking-wide ${category === "roommate" ? "bg-rose-500" : category === "sale" ? "bg-emerald-500" : "bg-gradient-to-r from-[#FF7A00] to-[#FF5500]"}`}>
+                  {category === "sale" ? "🏖️ Nhà Đất Biển Nha Trang" : category === "roommate" ? "🤝 Tìm Bạn Ở Ghép" : "🌊 Trọ Biển Nha Trang"}
+                </span>
+                <span className="text-xs font-semibold text-sky-200 flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  Cập nhật liên tục 24/7
+                </span>
+              </div>
+
+              <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight drop-shadow-xs">
+                {category === "sale"
+                  ? "Mua bán nhà đất, nhà phố, căn hộ Nha Trang mới nhất 2026"
+                  : category === "roommate"
+                  ? "Tìm bạn ở ghép Nha Trang - Tiết kiệm chi phí, kết nối thân thiện"
+                  : "Tìm phòng gần biển, an tâm giá tốt - Trọ Biển Nha Trang 2026"}
+              </h1>
+
+              <p className="text-xs sm:text-sm text-sky-100 mt-1 leading-relaxed">
+                {category === "sale"
+                  ? "Tổng hợp nhà mặt tiền, nhà hẻm, căn hộ, đất nền toàn thành phố biển Nha Trang. 100% hình ảnh thực, liên hệ chính chủ."
+                  : category === "roommate"
+                  ? "Kết nối sinh viên ĐH Nha Trang, CĐ Kỹ Thuật Công Nghệ, nhân viên văn phòng tìm bạn ở ghép chia sẻ chi phí an toàn."
+                  : "Hệ sinh thái tìm kiếm phòng trọ số 1 Nha Trang. Đo khoảng cách thực tế, cảnh báo ngập lụt mùa mưa và xác thực chính chủ."}
+              </p>
+
+              {/* Colorful feature chips */}
+              <div className="flex flex-wrap gap-2 mt-3 text-[11px] font-semibold">
+                <span className="bg-white/15 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 text-white flex items-center gap-1 shadow-2xs">
+                  <span>🏖️</span> Gần biển mát mẻ
+                </span>
+                <span className="bg-white/15 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 text-white flex items-center gap-1 shadow-2xs">
+                  <span>🛡️</span> Xác thực chính chủ 100%
+                </span>
+                <span className="bg-white/15 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 text-white flex items-center gap-1 shadow-2xs">
+                  <span>📍</span> Đo km ĐH Nha Trang &amp; CĐ KTCN
+                </span>
+              </div>
             </div>
-            <div className="w-[1px] h-7 bg-amber-200" />
-            <div>
-              <span className="text-base font-extrabold text-[#FF7A00] block">{stats.todayCount}</span>
-              <span className="text-gray-500 text-[11px]">Mới hôm nay</span>
+
+            {/* Stat Box */}
+            <div className="flex items-center gap-4 text-xs font-semibold shrink-0 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/80 shadow-xl text-gray-800">
+              <div>
+                <span className="text-xl font-black text-[#D0021B] block">{stats.total}</span>
+                <span className="text-gray-500 text-[11px] font-medium">{category === "sale" ? "Tin đang bán" : category === "roommate" ? "Tin ở ghép" : "Tin đang thuê"}</span>
+              </div>
+              <div className="w-[1px] h-9 bg-sky-200" />
+              <div>
+                <span className="text-xl font-black text-[#FF7A00] block">{stats.todayCount}</span>
+                <span className="text-gray-500 text-[11px] font-medium">Mới hôm nay</span>
+              </div>
             </div>
           </div>
         </div>
@@ -358,36 +385,58 @@ export default function RoomListClient({
         />
       )}
 
-      {/* Footer chuẩn Chợ Tốt */}
-      <footer className="mt-12 bg-white border-t border-[#E8E8E8] py-8 text-xs text-[#777777]">
+      {/* Footer chuẩn Trọ Biển Nha Trang */}
+      <footer className="mt-14 bg-gradient-to-b from-[#0F1E36] to-[#0A1628] text-slate-300 border-t-4 border-[#0284C7] py-10 text-xs">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <div className="bg-[#222222] text-[#FFBA00] font-black text-sm px-2 py-1 rounded inline-block mb-2">
-                CHO TOT TRỌ NHA TRANG
+              <div className="flex items-center gap-3 mb-3">
+                <div className="bg-white rounded-2xl p-1.5 shadow-md border border-white/90 inline-flex items-center justify-center shrink-0">
+                  <Image
+                    src="/tro-bien-logo.png"
+                    alt="Trọ Biển Nha Trang"
+                    width={100}
+                    height={100}
+                    className="h-14 w-14 object-contain rounded-xl"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5 leading-none">
+                    <span className="font-black text-xl text-white tracking-tight">TRỌ BIỂN</span>
+                    <span className="text-[10px] font-black bg-[#FF7A00] text-white px-1.5 py-0.5 rounded uppercase">Nha Trang</span>
+                  </div>
+                  <p className="text-orange-400 font-bold text-xs mt-1">
+                    Tìm phòng gần biển, an tâm giá tốt
+                  </p>
+                </div>
               </div>
-              <p className="text-[11px] leading-relaxed text-[#666666]">
-                Hệ thống tìm kiếm phòng trọ, nhà trọ cho thuê tại thành phố Nha Trang, tỉnh Khánh Hòa. Dữ liệu tổng hợp và phân loại tự động.
+              <p className="text-[11px] leading-relaxed text-slate-300">
+                Nền tảng tìm kiếm và kết nối phòng trọ, căn hộ, nhà ở uy tín hàng đầu thành phố biển Nha Trang. Bảo vệ người thuê với Khiên chống lừa đảo, Bản đồ ngập lụt &amp; Định giá AI.
               </p>
             </div>
             <div>
-              <h4 className="font-bold text-[#222222] mb-2 uppercase text-[11px]">Khu vực phổ biến</h4>
-              <ul className="space-y-1 text-[11px]">
-                <li><Link href="/?district=Vĩnh+Hải" className="hover:text-[#FF7A00]">Thuê phòng trọ Vĩnh Hải (gần ĐH Nha Trang)</Link></li>
-                <li><Link href="/?district=Phước+Long" className="hover:text-[#FF7A00]">Thuê phòng trọ Phước Long</Link></li>
-                <li><Link href="/?district=Lộc+Thọ" className="hover:text-[#FF7A00]">Thuê căn hộ, phòng trọ Lộc Thọ (trung tâm)</Link></li>
-                <li><Link href="/?district=Vĩnh+Phước" className="hover:text-[#FF7A00]">Thuê phòng trọ Vĩnh Phước</Link></li>
+              <h4 className="font-bold text-white mb-3 uppercase text-xs tracking-wider">Khu vực phổ biến</h4>
+              <ul className="space-y-1.5 text-[11px]">
+                <li><Link href="/?district=Vĩnh+Hải" className="text-slate-300 hover:text-sky-300 transition-colors">Thuê phòng trọ Vĩnh Hải (gần ĐH Nha Trang)</Link></li>
+                <li><Link href="/?district=Vĩnh+Hòa" className="text-slate-300 hover:text-sky-300 transition-colors">Thuê phòng trọ Vĩnh Hòa (gần CĐ KTCN Nha Trang)</Link></li>
+                <li><Link href="/?district=Lộc+Thọ" className="text-slate-300 hover:text-sky-300 transition-colors">Thuê căn hộ, phòng trọ Lộc Thọ (trung tâm biển)</Link></li>
+                <li><Link href="/?district=Vĩnh+Phước" className="text-slate-300 hover:text-sky-300 transition-colors">Thuê phòng trọ Vĩnh Phước (gần biển Hòn Chồng)</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-[#222222] mb-2 uppercase text-[11px]">Nguồn dữ liệu</h4>
-              <p className="text-[11px] text-[#666666]">
-                Tin đăng được cập nhật tự động từ Chợ Tốt, Nhà Tốt, Phongtro123, Mogi và thành viên cộng đồng tự đăng tải.
+              <h4 className="font-bold text-white mb-3 uppercase text-xs tracking-wider">Cam kết dịch vụ</h4>
+              <p className="text-[11px] text-slate-300 leading-relaxed mb-3">
+                100% tin đăng được xác minh thực tế, phân loại chính chủ minh bạch và cập nhật tự động liên tục phục vụ cộng đồng sinh viên, người lao động tại Nha Trang.
               </p>
+              <div className="flex flex-wrap gap-1.5">
+                <span className="bg-sky-900/60 text-sky-200 border border-sky-700/50 text-[10px] px-2 py-0.5 rounded-full font-bold">🛡️ Khiên lừa đảo</span>
+                <span className="bg-amber-900/60 text-amber-200 border border-amber-700/50 text-[10px] px-2 py-0.5 rounded-full font-bold">🌧️ Radar ngập lụt</span>
+                <span className="bg-emerald-900/60 text-emerald-200 border border-emerald-700/50 text-[10px] px-2 py-0.5 rounded-full font-bold">🤖 Định giá AI</span>
+              </div>
             </div>
           </div>
-          <div className="border-t border-gray-100 pt-4 text-center text-[11px] text-gray-400">
-            © 2026 Chợ Tốt Trọ Nha Trang • Thiết kế & vận hành trên Localhost
+          <div className="border-t border-slate-800 pt-4 text-center text-[11px] text-slate-400">
+            © 2026 Trọ Biển Nha Trang (trobien.vn) • Nền tảng tìm kiếm phòng trọ số 1 thành phố biển Nha Trang
           </div>
         </div>
       </footer>
