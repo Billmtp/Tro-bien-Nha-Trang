@@ -6,7 +6,7 @@ const NHA_TRANG_TIPS = [
   "🌴 Đang rà soát phòng trọ tại các phường: Vĩnh Hải, Vĩnh Phước, Lộc Thọ, Phước Hải...",
   "📡 Đang kết nối dữ liệu trực tiếp từ các nguồn phòng trọ uy tín toàn Nha Trang...",
   "🛡️ Hệ thống tự động lọc tin trùng lặp và xác minh số điện thoại chính chủ...",
-  "💡 Mẹo: Những bài đăng có Tích Xanh đã được xác thực danh tính qua OTP SMS hoặc Gmail.",
+  "💡 Mẹo: Những bài đăng có Tích Xanh đã được xác thực danh tính chính chủ qua Gmail.",
   "🌊 Khu vực gần biển Trần Phú & Đại học Nha Trang đang có nhiều phòng giá tốt mới cập nhật...",
 ];
 

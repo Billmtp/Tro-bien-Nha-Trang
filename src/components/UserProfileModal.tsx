@@ -415,28 +415,28 @@ export default function UserProfileModal({
                           <span>✓</span> Đã xác thực
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
-                          <span>!</span> Chưa xác thực
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                          <span>⏳</span> Đang phát triển
                         </span>
                       )}
                     </div>
 
                     <p className="text-[11px] text-gray-500 mt-2 mb-3">
                       {user.isVerified
-                        ? "Số điện thoại của bạn đã được kiểm duyệt chính chủ bằng OTP SMS."
-                        : "Xác minh bằng mã OTP gửi về máy để tạo độ tin cậy với người tìm phòng."}
+                        ? "Số điện thoại của bạn đã được kiểm duyệt chính chủ."
+                        : "Tính năng gửi mã qua tin nhắn SMS đang nâng cấp. Vui lòng xác thực qua Gmail bên dưới."}
                     </p>
 
                     {!user.isVerified ? (
                       <button
                         onClick={() => {
                           onClose();
-                          onOpenVerify("phone");
+                          onOpenVerify("email");
                         }}
-                        className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+                        className="w-full py-2 px-3 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                       >
-                        <span>📲</span>
-                        <span>Xác thực SĐT (Nhận OTP)</span>
+                        <span>📧</span>
+                        <span>Xác thực qua Gmail (Khuyên dùng)</span>
                       </button>
                     ) : (
                       <div className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">

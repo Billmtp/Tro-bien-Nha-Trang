@@ -184,18 +184,17 @@ export default function VerifyAccountModal({
             {isPostRequired ? (
               <span>
                 Quy định hệ thống: Chỉ những tài khoản đã xác thực{" "}
-                <b className="text-blue-600">Số điện thoại (SĐT)</b> hoặc{" "}
-                <b className="text-red-600">Gmail</b> mới đủ tư cách đăng tin phòng trọ.
+                <b className="text-rose-600">Gmail</b> mới đủ tư cách đăng tin phòng trọ.
               </span>
             ) : (
               <span>
-                Xác thực tài khoản để nhận huy hiệu <b className="text-blue-600">Tích Xanh Uy Tín ✓</b> và đủ điều kiện đăng tin.
+                Xác thực tài khoản qua <b className="text-rose-600">Gmail</b> để nhận huy hiệu <b className="text-blue-600">Tích Xanh Uy Tín ✓</b> và đăng tin phòng trọ.
               </span>
             )}
           </p>
 
           <div className="mt-2 text-[11px] font-semibold text-emerald-700 bg-emerald-50 py-1 px-3 rounded-full border border-emerald-200 inline-block">
-            💡 Bạn chỉ cần hoàn thành 1 trong 2 phương thức là đủ điều kiện!
+            💡 Xác thực qua Gmail hoàn toàn miễn phí, nhận mã OTP tức thì!
           </div>
         </div>
 
@@ -245,102 +244,56 @@ export default function VerifyAccountModal({
                 }}
                 className={`py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                   activeTab === "phone"
-                    ? "bg-white text-blue-700 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
+                    ? "bg-white text-gray-700 shadow-sm font-black"
+                    : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                <span>📱 Số Điện Thoại</span>
-                {isPhoneVerified && (
-                  <span className="text-[10px] bg-blue-100 text-blue-700 px-1 rounded font-black">✓</span>
-                )}
+                <span>📱 Tin Nhắn SMS</span>
+                <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">
+                  Đang phát triển
+                </span>
               </button>
             </div>
 
-            {/* TAB 1: SỐ ĐIỆN THOẠI */}
+            {/* TAB: SỐ ĐIỆN THOẠI (ĐANG PHÁT TRIỂN) */}
             {activeTab === "phone" && (
-              <div className="p-4 bg-gray-50/80 rounded-2xl border border-gray-200 space-y-3.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-gray-700">Xác thực qua Số Điện Thoại (SMS OTP)</span>
-                  {isPhoneVerified ? (
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
-                      ✓ Đã xác thực
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
-                      Chưa xác thực
-                    </span>
-                  )}
+              <div className="p-5 bg-amber-50/70 rounded-2xl border border-amber-200 text-center space-y-3.5 animate-in fade-in">
+                <div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner border border-amber-200">
+                  🚧
                 </div>
 
-                {isPhoneVerified ? (
-                  <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-800 space-y-1">
-                    <p className="font-bold flex items-center gap-1">
-                      <span>✓</span> Số điện thoại <b>{userPhone}</b> đã được xác thực chính chủ.
-                    </p>
-                    <p className="text-[11px] text-emerald-600">
-                      Tài khoản của bạn đã đủ điều kiện đăng tin phòng trọ.
-                    </p>
-                  </div>
-                ) : phoneStep === "send" ? (
-                  <div className="space-y-3">
-                    <div className="p-3 bg-white rounded-xl border border-gray-200 text-xs">
-                      <span className="text-gray-500 block text-[11px]">Số điện thoại đăng ký:</span>
-                      <span className="font-black text-sm text-gray-900 tracking-wider">{userPhone}</span>
-                    </div>
+                <div>
+                  <h4 className="font-black text-sm text-gray-900 flex items-center justify-center gap-1.5">
+                    <span>Xác Thực SMS OTP</span>
+                    <span className="text-[10px] bg-amber-200 text-amber-800 font-bold px-2 py-0.5 rounded-full">
+                      Đang phát triển
+                    </span>
+                  </h4>
+                  <p className="text-xs text-gray-600 mt-2 leading-relaxed max-w-sm mx-auto">
+                    Cổng viễn thông gửi mã OTP qua tin nhắn SMS hiện đang được nâng cấp kỹ thuật và chưa hỗ trợ.
+                  </p>
+                </div>
 
-                    <button
-                      onClick={handleSendPhoneOtp}
-                      disabled={loading}
-                      className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-                    >
-                      {loading ? "Đang gửi mã..." : "GỬI MÃ OTP XÁC THỰC SĐT"}
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleVerifyPhoneOtp} className="space-y-3">
-                    {phoneDemoCode && (
-                      <div className="p-2.5 bg-amber-50 text-amber-900 border border-amber-300 rounded-xl text-xs">
-                        <span className="font-bold">🔔 Mã OTP thử nghiệm (Localhost Demo):</span>{" "}
-                        <span className="font-mono font-black text-sm text-[#FF7A00] tracking-widest bg-white px-2 py-0.5 rounded border border-amber-200 ml-1">
-                          {phoneDemoCode}
-                        </span>
-                      </div>
-                    )}
+                <div className="p-3 bg-white rounded-xl border border-amber-200/80 text-xs text-gray-700 space-y-1">
+                  <p className="font-bold text-rose-600">
+                    💡 Quý khách vui lòng xác thực qua 📧 Tài Khoản Gmail
+                  </p>
+                  <p className="text-[11px] text-gray-500">
+                    Mã xác thực 6 số thật sẽ được gửi trực tiếp vào hòm thư, hoàn toàn miễn phí và nhận tức thì!
+                  </p>
+                </div>
 
-                    <div>
-                      <label className="block text-[11px] font-bold text-gray-700 mb-1 text-center">
-                        Nhập 6 chữ số mã OTP gửi đến {userPhone}
-                      </label>
-                      <input
-                        type="text"
-                        maxLength={6}
-                        autoFocus
-                        placeholder="000000"
-                        value={phoneOtp}
-                        onChange={(e) => setPhoneOtp(e.target.value.replace(/\D/g, ""))}
-                        className="w-full text-center tracking-[0.5em] text-lg font-mono font-black py-2 border-2 border-blue-400 rounded-xl focus:border-blue-600 outline-none bg-white"
-                      />
-                    </div>
-
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={handleSendPhoneOtp}
-                        disabled={loading}
-                        className="w-1/3 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-200 bg-white border border-gray-200 rounded-xl transition-colors"
-                      >
-                        Gửi lại mã
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-2/3 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-                      >
-                        {loading ? "Đang kiểm tra..." : "XÁC NHẬN SĐT ✓"}
-                      </button>
-                    </div>
-                  </form>
-                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab("email");
+                    setError("");
+                  }}
+                  className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow transition-all flex items-center justify-center gap-2"
+                >
+                  <span>Chuyển sang xác thực qua Gmail ngay</span>
+                  <span>➜</span>
+                </button>
               </div>
             )}
 
