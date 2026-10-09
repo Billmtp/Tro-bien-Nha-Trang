@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 533" width="100%" height="100%">
+  <defs>
+    <linearGradient id="aloGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#008848"/>
+      <stop offset="100%" stop-color="#004D26"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="533" fill="url(#aloGrad)"/>
+  <circle cx="120" cy="90" r="150" fill="white" opacity="0.05"/>
+  <circle cx="710" cy="440" r="190" fill="white" opacity="0.05"/>
+
+  <g transform="translate(400, 266)">
+    <g transform="translate(-40, -140)" filter="url(#shadow)">
+      <rect width="80" height="80" rx="20" fill="white"/>
+      <path d="M40 22L20 38h8v20h10V46h4v12h10V38h8L40 22z" fill="#008848"/>
+    </g>
+
+    <rect x="-165" y="-35" width="330" height="34" rx="17" fill="white" opacity="0.2"/>
+    <text x="0" y="-13" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" letter-spacing="1.5" text-anchor="middle">
+      🏡 ALONHADAT.COM.VN NHA TRANG
+    </text>
+
+    <text x="0" y="45" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" text-anchor="middle">
+      Tin Đăng Alonhadat Nha Trang
+    </text>
+
+    <text x="0" y="85" fill="#E8F5E9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" text-anchor="middle">
+      Kênh Nhà Trọ &amp; Nhà Đất Chính Chủ Nha Trang
+    </text>
+
+    <g transform="translate(0, 135)">
+      <rect x="-140" y="-18" width="280" height="36" rx="18" fill="white" opacity="0.95" filter="url(#shadow)"/>
+      <text x="0" y="5" fill="#008848" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+        Bấm xem chi tiết &amp; Liên hệ ↗
+      </text>
+    </g>
+  </g>
+</svg>

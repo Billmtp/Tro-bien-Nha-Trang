@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 533" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1877F2"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="533" fill="url(#fbGrad)"/>
+
+  <!-- Subtle circles pattern -->
+  <circle cx="100" cy="80" r="140" fill="white" opacity="0.05"/>
+  <circle cx="720" cy="450" r="180" fill="white" opacity="0.05"/>
+  <circle cx="680" cy="100" r="90" fill="white" opacity="0.04"/>
+
+  <!-- Center Card Content -->
+  <g transform="translate(400, 266)">
+    <!-- Facebook Icon -->
+    <g transform="translate(-40, -140)" filter="url(#shadow)">
+      <rect width="80" height="80" rx="20" fill="white"/>
+      <path d="M52 42.5h-9.5V70h-11.4V42.5h-5.4V32.8h5.4v-6.3c0-7.5 4.5-11.6 11.3-11.6 3.2 0 6.6.6 6.6.6v7.3h-3.7c-3.7 0-4.9 2.3-4.9 4.7v5.3H50.8L52 42.5z" fill="#1877F2"/>
+    </g>
+
+    <!-- Source Badge -->
+    <rect x="-160" y="-35" width="320" height="34" rx="17" fill="white" opacity="0.2"/>
+    <text x="0" y="-13" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" letter-spacing="1.5" text-anchor="middle">
+      👥 CỘNG ĐỒNG FACEBOOK NHA TRANG
+    </text>
+
+    <!-- Title -->
+    <text x="0" y="45" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" text-anchor="middle">
+      Tin Đăng Từ Hội Nhóm Facebook
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="85" fill="#E0E7FF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="500" text-anchor="middle">
+      Hội Tìm Trọ Nha Trang • Sinh Viên ĐH Nha Trang • Người Đi Làm
+    </text>
+
+    <!-- Hint Pill -->
+    <g transform="translate(0, 135)">
+      <rect x="-140" y="-18" width="280" height="36" rx="18" fill="white" opacity="0.95" filter="url(#shadow)"/>
+      <text x="0" y="5" fill="#1877F2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+        Bấm xem chi tiết &amp; Link bài viết ↗
+      </text>
+    </g>
+  </g>
+</svg>

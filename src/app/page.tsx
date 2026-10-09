@@ -1,69 +1,151 @@
-import Image from "next/image";
+import { prisma } from "@/lib/db";
+import RoomListClient from "@/components/RoomListClient";
 
-export default function Home() {
+interface PageProps {
+  searchParams: Promise<{
+    page?: string;
+    district?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    minArea?: string;
+    site?: string;
+    q?: string;
+    sort?: string;
+    category?: string;
+  }>;
+}
+
+export const dynamic = "force-dynamic";
+
+export default async function Home({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const page = parseInt(params.page || "1");
+  const limit = 20;
+  const category = params.category === "sale" ? "sale" : params.category === "roommate" ? "roommate" : "rent";
+  const district = params.district && params.district !== "Tất cả khu vực" ? params.district : "";
+  const minPrice = parseInt(params.minPrice || "0");
+  const maxPrice = parseInt(params.maxPrice || "0");
+  const site = params.site || "";
+  const q = params.q || "";
+  const sort = params.sort || "newest";
+
+  let orderBy: any = { scrapedAt: "desc" };
+  if (sort === "price_asc") orderBy = { price: "asc" };
+  if (sort === "price_desc") orderBy = { price: "desc" };
+
+  const where: any = {
+    isActive: true,
+    status: "approved",
+    category,
+    ...(district && { district }),
+    ...(site && {
+      sourceSite: site === "facebook" ? { contains: "facebook" } : site,
+    }),
+    ...(q && {
+      OR: [
+        { title: { contains: q, mode: "insensitive" } },
+        { address: { contains: q, mode: "insensitive" } },
+        { description: { contains: q, mode: "insensitive" } },
+      ],
+    }),
+    ...(minPrice > 0 || maxPrice > 0
+      ? {
+          price: {
+            ...(minPrice > 0 ? { gte: minPrice } : {}),
+            ...(maxPrice > 0 ? { lte: maxPrice } : {}),
+          },
+        }
+      : {}),
+  };
+
+  const [rooms, total, todayCount, lastUpdate, mapRoomsRaw] = await Promise.all([
+    prisma.room.findMany({
+      where,
+      orderBy,
+      skip: (page - 1) * limit,
+      take: limit,
+      select: {
+        id: true,
+        title: true,
+        price: true,
+        area: true,
+        address: true,
+        district: true,
+        images: true,
+        sourceUrl: true,
+        sourceSite: true,
+        contact: true,
+        lat: true,
+        lng: true,
+        scrapedAt: true,
+      },
+    }),
+    prisma.room.count({ where }),
+    prisma.room.count({
+      where: {
+        isActive: true,
+        category,
+        scrapedAt: { gte: new Date(Date.now() - 24 * 3_600_000) },
+      },
+    }),
+    prisma.room.findFirst({
+      where: { category },
+      orderBy: { scrapedAt: "desc" },
+      select: { scrapedAt: true },
+    }),
+    // Lấy tập hợp phòng diện rộng cho Bản Đồ Nha Trang (lên đến 300 phòng) để bản đồ phủ kín thành phố
+    prisma.room.findMany({
+      where: {
+        isActive: true,
+        status: "approved",
+        category,
+        ...(district && { district }),
+        ...(minPrice > 0 || maxPrice > 0
+          ? {
+              price: {
+                ...(minPrice > 0 ? { gte: minPrice } : {}),
+                ...(maxPrice > 0 ? { lte: maxPrice } : {}),
+              },
+            }
+          : {}),
+      },
+      take: 300,
+      orderBy: { scrapedAt: "desc" },
+      select: {
+        id: true,
+        title: true,
+        price: true,
+        area: true,
+        address: true,
+        district: true,
+        images: true,
+        sourceSite: true,
+        lat: true,
+        lng: true,
+        category: true,
+      },
+    }),
+  ]);
+
+  const formattedRooms = rooms.map((r) => ({
+    ...r,
+    scrapedAt: r.scrapedAt.toISOString(),
+  }));
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <RoomListClient
+      rooms={formattedRooms}
+      mapRooms={mapRoomsRaw}
+      total={total}
+      page={page}
+      totalPages={Math.ceil(total / limit)}
+      stats={{
+        total,
+        todayCount,
+        lastUpdate: lastUpdate?.scrapedAt ? lastUpdate.scrapedAt.toISOString() : null,
+      }}
+      searchParams={params}
+      category={category}
+    />
   );
 }

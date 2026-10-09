@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  phone           String    @unique
+  name            String
+  password        String
+  avatar          String?
+  bio             String?
+  role            String    @default("user") // "user" | "admin"
+  isVerified      Boolean   @default(false) @map("is_verified") // Xác thực số điện thoại
+  verificationOtp String?   @map("verification_otp")
+  email           String?   @unique
+  isEmailVerified Boolean   @default(false) @map("is_email_verified") // Xác thực Gmail
+  emailOtp        String?   @map("email_otp")
+  isBanned        Boolean   @default(false) @map("is_banned")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  rooms           Room[]
+
+  @@map("users")
+}
+
+model Room {
+  id              Int       @id @default(autoincrement())
+  title           String
+  price           Float?
+  area            Float?
+  address         String?
+  district        String?
+  description     String?   @db.Text
+  images          String[]
+  sourceUrl       String    @unique @map("source_url")
+  sourceSite      String    @map("source_site")
+  contact         String?
+  lat             Float?
+  lng             Float?
+  category        String    @default("rent") // "rent" | "sale"
+  status          String    @default("approved") // "pending" | "approved" | "rejected"
+  isVip           Boolean   @default(false) @map("is_vip")
+  rejectionReason String?   @map("rejection_reason")
+  isActive        Boolean   @default(true) @map("is_active")
+  scrapedAt       DateTime  @default(now()) @map("scraped_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  userId          Int?      @map("user_id")
+  user            User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([category])
+  @@index([status])
+  @@index([district])
+  @@index([price])
+  @@index([scrapedAt(sort: Desc)])
+  @@index([isActive])
+  @@map("rooms")
+}
