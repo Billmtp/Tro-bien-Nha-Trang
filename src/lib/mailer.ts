@@ -97,36 +97,54 @@ export async function sendOtpEmail({ to, otp, userName }: SendOtpOptions): Promi
   const gmailPass = process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS;
 
   if (gmailUser && gmailPass) {
-    try {
-      const cleanUser = gmailUser.trim();
-      const cleanPass = gmailPass.replace(/\s+/g, "").trim();
+    const cleanUser = gmailUser.trim();
+    const cleanPass = gmailPass.replace(/\s+/g, "").trim();
 
-      const transporter = nodemailer.createTransport({
+    const mailOptions = {
+      from: `"Trọ Biển Nha Trang" <${cleanUser}>`,
+      to,
+      subject: `[Trọ Biển Nha Trang] Mã xác thực OTP: ${otp}`,
+      text: `Xin chào ${userName || "bạn"},\n\nMã xác thực OTP của bạn là: ${otp}\nMã có hiệu lực trong 10 phút.\n\nTrân trọng,\nĐội ngũ Trọ Biển Nha Trang`,
+      html: htmlContent,
+    };
+
+    // Thử cổng 465 (SSL)
+    try {
+      const transporter465 = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
-        auth: {
-          user: cleanUser,
-          pass: cleanPass,
-        },
-        connectionTimeout: 10000,
-        greetingTimeout: 5000,
-        socketTimeout: 10000,
+        auth: { user: cleanUser, pass: cleanPass },
+        connectionTimeout: 7000,
+        greetingTimeout: 4000,
+        socketTimeout: 7000,
       });
 
-      await transporter.sendMail({
-        from: `"Trọ Biển Nha Trang" <${cleanUser}>`,
-        to,
-        subject: `[Trọ Biển Nha Trang] Mã xác thực OTP: ${otp}`,
-        text: `Xin chào ${userName || "bạn"},\n\nMã xác thực OTP của bạn là: ${otp}\nMã có hiệu lực trong 10 phút.\n\nTrân trọng,\nĐội ngũ Trọ Biển Nha Trang`,
-        html: htmlContent,
-      });
+      await transporter465.sendMail(mailOptions);
+      console.log(`[Email OTP] Gửi thành công qua Gmail SMTP (465) tới ${to}`);
+      return { success: true, provider: "gmail_smtp_465" };
+    } catch (err465: any) {
+      console.warn("[Email OTP 465 Error - Thử tiếp cổng 587]", err465?.message);
 
-      console.log(`[Email OTP] Gửi thành công qua Gmail SMTP tới ${to}`);
-      return { success: true, provider: "gmail_smtp" };
-    } catch (err: any) {
-      console.error("[Email OTP Gmail SMTP Error]", err);
-      return { success: false, provider: "gmail_smtp", error: err.message };
+      // Thử tiếp cổng 587 (STARTTLS) tương thích tối đa hạ tầng cloud/Vercel
+      try {
+        const transporter587 = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 587,
+          secure: false,
+          auth: { user: cleanUser, pass: cleanPass },
+          connectionTimeout: 7000,
+          greetingTimeout: 4000,
+          socketTimeout: 7000,
+        });
+
+        await transporter587.sendMail(mailOptions);
+        console.log(`[Email OTP] Gửi thành công qua Gmail SMTP (587) tới ${to}`);
+        return { success: true, provider: "gmail_smtp_587" };
+      } catch (err587: any) {
+        console.error("[Email OTP Gmail SMTP cả 465 và 587 đều lỗi]", err587?.message);
+        return { success: false, provider: "gmail_smtp", error: err587?.message };
+      }
     }
   }
 
