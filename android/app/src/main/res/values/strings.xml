@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Trọ Biển Nha Trang</string>
+    <string name="title_activity_main">Trọ Biển Nha Trang</string>
+    <string name="package_name">vn.trobien.nhatrang</string>
+    <string name="custom_url_scheme">vn.trobien.nhatrang</string>
+</resources>
