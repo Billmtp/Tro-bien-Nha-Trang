@@ -98,18 +98,27 @@ export async function sendOtpEmail({ to, otp, userName }: SendOtpOptions): Promi
 
   if (gmailUser && gmailPass) {
     try {
+      const cleanUser = gmailUser.trim();
+      const cleanPass = gmailPass.replace(/\s+/g, "").trim();
+
       const transporter = nodemailer.createTransport({
-        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         auth: {
-          user: gmailUser,
-          pass: gmailPass.replace(/\s+/g, ""), // Xóa khoảng trắng nếu user dán nguyên dạng Google 'abcd efgh...'
+          user: cleanUser,
+          pass: cleanPass,
         },
+        connectionTimeout: 10000,
+        greetingTimeout: 5000,
+        socketTimeout: 10000,
       });
 
       await transporter.sendMail({
-        from: `"Trọ Biển Nha Trang" <${gmailUser}>`,
+        from: `"Trọ Biển Nha Trang" <${cleanUser}>`,
         to,
         subject: `[Trọ Biển Nha Trang] Mã xác thực OTP: ${otp}`,
+        text: `Xin chào ${userName || "bạn"},\n\nMã xác thực OTP của bạn là: ${otp}\nMã có hiệu lực trong 10 phút.\n\nTrân trọng,\nĐội ngũ Trọ Biển Nha Trang`,
         html: htmlContent,
       });
 

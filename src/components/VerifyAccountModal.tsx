@@ -417,6 +417,9 @@ export default function VerifyAccountModal({
                         onChange={(e) => setEmailOtp(e.target.value.replace(/\D/g, ""))}
                         className="w-full text-center tracking-[0.5em] text-lg font-mono font-black py-2 border-2 border-rose-400 rounded-xl focus:border-rose-600 outline-none bg-white"
                       />
+                      <p className="text-[11px] text-center text-gray-500 mt-1.5">
+                        💡 Chưa thấy thư? Vui lòng kiểm tra thêm mục <b>Thư rác (Spam)</b> hoặc <b>Quảng cáo</b>.
+                      </p>
                     </div>
 
                     <div className="flex gap-2">
