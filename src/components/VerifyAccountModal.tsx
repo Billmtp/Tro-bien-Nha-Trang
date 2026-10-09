@@ -7,7 +7,7 @@ export default function VerifyAccountModal({
   userEmail,
   isPhoneVerified = false,
   isEmailVerified = false,
-  initialMethod = "phone",
+  initialMethod = "email",
   isPostRequired = false,
   onClose,
   onSuccess,
@@ -22,7 +22,7 @@ export default function VerifyAccountModal({
   onSuccess: () => void;
 }) {
   const [activeTab, setActiveTab] = useState<"phone" | "email">(
-    isPhoneVerified && !isEmailVerified ? "email" : initialMethod
+    isEmailVerified && !isPhoneVerified ? "phone" : initialMethod
   );
 
   // Phone State
@@ -214,8 +214,29 @@ export default function VerifyAccountModal({
           </div>
         ) : (
           <div className="space-y-4">
-            {/* Tabs Switcher: Phone vs Gmail */}
+            {/* Tabs Switcher: Gmail vs Phone */}
             <div className="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-xl">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab("email");
+                  setError("");
+                }}
+                className={`py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+                  activeTab === "email"
+                    ? "bg-white text-rose-700 shadow-sm font-black"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                <span>📧 Tài Khoản Gmail</span>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-bold hidden xs:inline">
+                  {isEmailVerified ? "✓" : "Free"}
+                </span>
+                {isEmailVerified && (
+                  <span className="text-[10px] bg-rose-100 text-rose-700 px-1 rounded font-black">✓</span>
+                )}
+              </button>
+
               <button
                 type="button"
                 onClick={() => {
@@ -231,24 +252,6 @@ export default function VerifyAccountModal({
                 <span>📱 Số Điện Thoại</span>
                 {isPhoneVerified && (
                   <span className="text-[10px] bg-blue-100 text-blue-700 px-1 rounded font-black">✓</span>
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveTab("email");
-                  setError("");
-                }}
-                className={`py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
-                  activeTab === "email"
-                    ? "bg-white text-rose-700 shadow-sm"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                <span>📧 Tài Khoản Gmail</span>
-                {isEmailVerified && (
-                  <span className="text-[10px] bg-rose-100 text-rose-700 px-1 rounded font-black">✓</span>
                 )}
               </button>
             </div>

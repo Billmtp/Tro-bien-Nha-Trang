@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { sendOtpEmail } from "@/lib/mailer";
 
 export async function POST() {
   try {
@@ -21,12 +22,20 @@ export async function POST() {
       data: { verificationOtp: otp },
     });
 
+    // Nếu user có email, gửi mã OTP sang email luôn
+    if (user.email) {
+      await sendOtpEmail({
+        to: user.email,
+        otp,
+        userName: user.name,
+      }).catch(() => {});
+    }
+
     return NextResponse.json({
       success: true,
       phone: user.phone,
-      // Trả về otpDemo để trải nghiệm trên localhost thuận tiện mà không cần SMS Gateway trả phí
       otpDemo: otp,
-      message: `Mã xác thực OTP đã được gửi đến số ${user.phone}.`,
+      message: `Mã xác thực OTP đã được tạo cho số ${user.phone}.${user.email ? ` (Đồng thời đã gửi đến Gmail: ${user.email})` : ""}`,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Lỗi khi gửi mã OTP" }, { status: 500 });
