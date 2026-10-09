@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { sendOtpEmail } from "@/lib/mailer";
 
 export async function POST(request: Request) {
   try {
@@ -43,11 +44,22 @@ export async function POST(request: Request) {
       },
     });
 
+    // Gửi email OTP thật sự nếu có cấu hình
+    const mailResult = await sendOtpEmail({
+      to: cleanEmail,
+      otp,
+      userName: user.name,
+    });
+
     return NextResponse.json({
       success: true,
       email: cleanEmail,
-      otpDemo: otp,
-      message: `Mã xác thực đã được gửi đến địa chỉ ${cleanEmail}.`,
+      // Nếu đã gửi email thật thành công thì không cần hiện otpDemo; nếu chưa cấu hình thì giữ lại để dev/test
+      otpDemo: mailResult.success ? undefined : otp,
+      provider: mailResult.provider,
+      message: mailResult.success
+        ? `Mã xác thực OTP đã được gửi đến hộp thư Gmail của ${cleanEmail}. Vui lòng kiểm tra hộp thư đến (hoặc hòm thư Spam).`
+        : `Mã xác thực đã được gửi đến địa chỉ ${cleanEmail}.`,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Lỗi khi gửi mã xác thực email" }, { status: 500 });
