@@ -16,6 +16,7 @@ export async function GET(request: Request) {
   const site = searchParams.get("site") || "";
   const q = searchParams.get("q") || "";
   const sort = searchParams.get("sort") || "newest";
+  const category = searchParams.get("category") || "";
 
   let orderBy: any = { scrapedAt: "desc" };
   if (sort === "price_asc") orderBy = { price: "asc" };
@@ -24,6 +25,7 @@ export async function GET(request: Request) {
   const where: any = {
     isActive: true,
     status: "approved",
+    ...(category && { category }),
     ...(district && { district }),
     ...(site && {
       sourceSite: site === "facebook" ? { contains: "facebook" } : site,
@@ -74,6 +76,8 @@ export async function GET(request: Request) {
     {
       headers: {
         "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
       },
     }
   );
