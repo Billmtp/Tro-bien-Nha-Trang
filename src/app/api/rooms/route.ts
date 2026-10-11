@@ -59,6 +59,9 @@ export async function GET(request: Request) {
         sourceSite: true,
         contact: true,
         description: true,
+        category: true,
+        lat: true,
+        lng: true,
         isVip: true,
         scrapedAt: true,
       },
@@ -77,10 +80,22 @@ export async function GET(request: Request) {
       headers: {
         "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     }
   );
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
 }
 
 export async function POST(request: Request) {
