@@ -12,6 +12,7 @@ import VerifyAccountModal from "./VerifyAccountModal";
 import UserProfileModal from "./UserProfileModal";
 import UnverifiedFloatingAlert from "./UnverifiedFloatingAlert";
 import RoomAlertModal from "./RoomAlertModal";
+import DownloadAppModal from "./DownloadAppModal";
 import { showAppAlert } from "./AppNotificationModal";
 import { useTheme } from "./ThemeManager";
 
@@ -32,6 +33,7 @@ export default function HeaderChotot({
   const [isPostOpen, setIsPostOpen] = useState(false);
   const [isSavedOpen, setIsSavedOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isDownloadAppOpen, setIsDownloadAppOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isMyRoomsOpen, setIsMyRoomsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -397,6 +399,27 @@ export default function HeaderChotot({
               </button>
             )}
 
+            {/* Nút TẢI APP MOBILE (APK) với Logo App */}
+            <button
+              onClick={() => setIsDownloadAppOpen(true)}
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full text-xs font-black text-white bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 border border-emerald-300/60 shadow-md shadow-emerald-950/20 transition-all transform active:scale-95 cursor-pointer shrink-0"
+              title="Tải ứng dụng Android (File APK bản mới nhất)"
+            >
+              <div className="w-5 h-5 rounded-full bg-white p-0.5 shadow-2xs flex items-center justify-center shrink-0">
+                <Image
+                  src="/tro-bien-logo.png"
+                  alt="Logo Trọ Biển"
+                  width={20}
+                  height={20}
+                  className="w-full h-full object-contain rounded-full"
+                />
+              </div>
+              <span className="font-black tracking-tight">Tải App</span>
+              <span className="hidden xs:inline-block bg-white/25 text-[9px] font-extrabold px-1.5 py-0.2 rounded-full uppercase tracking-wider text-emerald-100">
+                APK
+              </span>
+            </button>
+
             {/* Nút ĐĂNG TIN (Desktop) */}
             <button
               onClick={handleOpenPost}
@@ -602,6 +625,12 @@ export default function HeaderChotot({
       {isAlertOpen && (
         <RoomAlertModal onClose={() => setIsAlertOpen(false)} />
       )}
+
+      {/* Modal Tải App Android APK */}
+      <DownloadAppModal
+        isOpen={isDownloadAppOpen}
+        onClose={() => setIsDownloadAppOpen(false)}
+      />
 
       {/* ================= MOBILE BOTTOM NAVIGATION BAR ================= */}
       {!isDetailPage && (
