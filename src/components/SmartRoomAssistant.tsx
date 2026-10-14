@@ -119,7 +119,7 @@ export default function SmartRoomAssistant() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-[#FFFBEB] via-[#FEF3C7] to-[#E0F2FE] rounded-2xl border-2 border-amber-300/90 p-3.5 sm:p-4 mb-4 shadow-sm">
+    <div className="bg-gradient-to-r from-[#FFFBEB] via-[#FEF3C7] to-[#E0F2FE] rounded-2xl border-2 border-amber-300/90 p-3.5 sm:p-4 mb-4 shadow-sm w-full min-w-0 max-w-full overflow-hidden">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
         <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ export default function SmartRoomAssistant() {
       </form>
 
       {/* Preset Chips Carousel / Quick Links */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-xs">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-xs w-full min-w-0">
         <span className="text-[11px] font-bold text-amber-900 shrink-0 flex items-center gap-1">
           <span>Gợi ý:</span>
         </span>

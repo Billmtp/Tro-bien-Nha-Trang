@@ -137,20 +137,20 @@ export default function RoomListClient({
   }, [rooms, ownerOnly]);
 
   return (
-    <div className="min-h-screen bg-[#EEF6FB] pb-16 md:pb-0">
+    <div className="min-h-screen bg-transparent pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
       {/* Header Chợ Tốt */}
       <HeaderChotot savedCount={savedCount} />
 
-      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4">
+      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 w-full min-w-0 max-w-full overflow-x-hidden">
         {/* Banner giới thiệu Trọ Biển Nha Trang */}
-        <div className="relative bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A4D68] text-white rounded-3xl p-5 sm:p-6 mb-4 shadow-xl shadow-sky-900/15 border border-sky-400/40 overflow-hidden">
+        <div className="relative bg-gradient-to-br from-[#0284C7] via-[#0369A1] to-[#0A4D68] text-white rounded-3xl p-4 sm:p-6 mb-4 shadow-xl shadow-sky-900/15 border border-sky-400/40 overflow-hidden w-full min-w-0">
           {/* Decorative glowing ambient beach lights */}
           <div className="absolute -right-12 -top-12 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
           <div className="absolute right-1/4 -bottom-16 w-56 h-56 bg-teal-400/20 rounded-full blur-2xl pointer-events-none"></div>
           <div className="absolute left-1/3 -top-10 w-40 h-40 bg-orange-500/20 rounded-full blur-2xl pointer-events-none"></div>
 
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="max-w-2xl">
+          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 w-full min-w-0">
+            <div className="max-w-2xl w-full min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className={`text-white text-[11px] font-black px-3 py-0.5 rounded-full uppercase shadow-sm tracking-wide ${category === "roommate" ? "bg-rose-500" : category === "sale" ? "bg-emerald-500" : "bg-gradient-to-r from-[#FF7A00] to-[#FF5500]"}`}>
                   {category === "sale" ? "🏖️ Nhà Đất Biển Nha Trang" : category === "roommate" ? "🤝 Tìm Bạn Ở Ghép" : "🌊 Trọ Biển Nha Trang"}
@@ -161,7 +161,7 @@ export default function RoomListClient({
                 </span>
               </div>
 
-              <h1 className="text-lg sm:text-2xl font-black text-white tracking-tight drop-shadow-xs">
+              <h1 className="text-base sm:text-2xl font-black text-white tracking-tight drop-shadow-xs break-words">
                 {category === "sale"
                   ? "Mua bán nhà đất, nhà phố, căn hộ Nha Trang mới nhất 2026"
                   : category === "roommate"
@@ -169,7 +169,7 @@ export default function RoomListClient({
                   : "Tìm phòng gần biển, an tâm giá tốt - Trọ Biển Nha Trang 2026"}
               </h1>
 
-              <p className="text-xs sm:text-sm text-sky-100 mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-sky-100 mt-1 leading-relaxed break-words">
                 {category === "sale"
                   ? "Tổng hợp nhà mặt tiền, nhà hẻm, căn hộ, đất nền toàn thành phố biển Nha Trang. 100% hình ảnh thực, liên hệ chính chủ."
                   : category === "roommate"
@@ -178,7 +178,7 @@ export default function RoomListClient({
               </p>
 
               {/* Colorful feature chips */}
-              <div className="flex flex-wrap gap-2 mt-3 text-[11px] font-semibold">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 text-[11px] font-semibold">
                 <span className="bg-white/15 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 text-white flex items-center gap-1 shadow-2xs">
                   <span>🏖️</span> Gần biển mát mẻ
                 </span>
@@ -192,7 +192,7 @@ export default function RoomListClient({
             </div>
 
             {/* Stat Box */}
-            <div className="flex items-center gap-4 text-xs font-semibold shrink-0 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/80 shadow-xl text-gray-800">
+            <div className="flex items-center gap-4 text-xs font-semibold bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/80 shadow-xl text-gray-800 w-full sm:w-auto justify-around sm:justify-start">
               <div>
                 <span className="text-xl font-black text-[#D0021B] block">{stats.total}</span>
                 <span className="text-gray-500 text-[11px] font-medium">{category === "sale" ? "Tin đang bán" : category === "roommate" ? "Tin ở ghép" : "Tin đang thuê"}</span>
@@ -249,7 +249,7 @@ export default function RoomListClient({
 
         {/* Danh sách phòng */}
         {displayedRooms.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center my-6">
+          <div className="bg-white/88 backdrop-blur-md rounded-2xl border border-white/70 shadow-lg p-12 text-center my-6">
             <span className="text-5xl mb-3 block">🔍</span>
             <h3 className="font-bold text-gray-700 text-base">Không tìm thấy phòng trọ phù hợp</h3>
             <p className="text-gray-500 text-xs mt-1 max-w-sm mx-auto">
@@ -329,7 +329,7 @@ export default function RoomListClient({
             {page > 1 && (
               <Link
                 href={buildUrl(page - 1)}
-                className="px-3.5 py-1.5 text-xs font-semibold bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
+                className="px-3.5 py-1.5 text-xs font-semibold bg-white/88 backdrop-blur-sm border border-white/80 rounded-lg hover:bg-white text-gray-700 transition-colors shadow-2xs"
               >
                 ← Trang trước
               </Link>
@@ -345,8 +345,8 @@ export default function RoomListClient({
                     href={buildUrl(p)}
                     className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-colors ${
                       active
-                        ? "bg-[#FFBA00] text-[#222222]"
-                        : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"
+                        ? "bg-[#FFBA00] text-[#222222] shadow-xs"
+                        : "bg-white/88 backdrop-blur-sm border border-white/80 text-gray-600 hover:bg-white shadow-2xs"
                     }`}
                   >
                     {p}
@@ -358,7 +358,7 @@ export default function RoomListClient({
             {page < totalPages && (
               <Link
                 href={buildUrl(page + 1)}
-                className="px-3.5 py-1.5 text-xs font-semibold bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 transition-colors"
+                className="px-3.5 py-1.5 text-xs font-semibold bg-white/88 backdrop-blur-sm border border-white/80 rounded-lg hover:bg-white text-gray-700 transition-colors shadow-2xs"
               >
                 Trang sau →
               </Link>

@@ -79,7 +79,7 @@ export default function CostCalculatorWidget({
                     : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                 }`}
               >
-                {num} người {num === 1 ? "(Một mình)" : num === 2 ? "(Ở ghép 2)" : "(Ở ghép 3)"}
+                {num} người <span className="hidden sm:inline font-normal">{num === 1 ? "(Một mình)" : num === 2 ? "(Ở ghép 2)" : "(Ở ghép 3)"}</span>
               </button>
             ))}
           </div>

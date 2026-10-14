@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
+import Image from "next/image";
 import AppNotificationModal from "@/components/AppNotificationModal";
 import { ThemeProvider } from "@/components/ThemeManager";
 import ThemeCustomizerModal from "@/components/ThemeCustomizerModal";
@@ -104,7 +105,23 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#EEF6FB] text-[#1E293B] antialiased min-h-screen selection:bg-[#0284C7] selection:text-white transition-colors duration-150">
+      <body className="text-[#1E293B] antialiased min-h-screen selection:bg-[#0284C7] selection:text-white transition-colors duration-150 relative">
+        {/* Global Coastal Ambient Backdrop - Tự động canh Full Screen 100% trên mọi loại màn hình */}
+        <div
+          className="fixed inset-0 w-full h-full min-h-[100dvh] pointer-events-none -z-10 overflow-hidden"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-no-repeat opacity-95"
+            style={{
+              backgroundImage: "url('/images/coastal-ambient-bg.png')",
+              backgroundAttachment: "fixed",
+              backgroundPosition: "center top",
+            }}
+          />
+          {/* Lớp phủ khí quyển chuyển sắc êm dịu: tôn lên sắc xanh ngọc biển và ánh nắng Nha Trang */}
+          <div className="absolute inset-0 bg-gradient-to-b from-sky-400/8 via-white/10 to-sky-900/18 backdrop-blur-[0.5px]" />
+        </div>
         <ThemeProvider>
           {children}
           <AppNotificationModal />

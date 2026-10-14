@@ -89,16 +89,27 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   font-family: var(--font-be-vietnam);
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100%;
+  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Safe Area for Mobile Devices */
 .safe-bottom {
-  padding-bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+.safe-bottom-dock {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
 }
 
 /* ================= DARK MODE STYLING ================= */

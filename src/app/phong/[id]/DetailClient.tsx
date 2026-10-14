@@ -262,7 +262,7 @@ export default function DetailClient({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 pb-24 md:pb-6">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 py-4 pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] md:pb-6">
       {/* Breadcrumb */}
       <nav className="text-xs text-[#777777] mb-3 flex items-center gap-1.5 overflow-x-auto whitespace-nowrap">
         <Link href="/" className="hover:text-[#0284C7]">Trang chủ</Link>
@@ -281,7 +281,7 @@ export default function DetailClient({
         {/* Cột Trái: Chi tiết tin (2 phần) */}
         <div className="lg:col-span-2 space-y-4">
           {/* Card Hình Ảnh */}
-          <div className="bg-white rounded-2xl border border-[#E8E8E8] overflow-hidden shadow-xs">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl border border-white/70 overflow-hidden shadow-sm">
             {/* Ảnh lớn */}
             <div className="relative aspect-[16/10] bg-black">
               <Image
@@ -317,7 +317,7 @@ export default function DetailClient({
           </div>
 
           {/* Card Thông tin cơ bản */}
-          <div className="bg-white rounded-2xl border border-[#E8E8E8] p-5 shadow-xs">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl border border-white/70 p-5 shadow-sm">
             <h1 className="text-lg sm:text-xl font-bold text-[#222222] leading-snug">
               {room.title}
             </h1>
@@ -588,7 +588,7 @@ export default function DetailClient({
 
         {/* Cột Phải: Thông tin người bán & Liên hệ (Sticky Card) */}
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border-t-4 border-t-[#0284C7] border-x border-b border-sky-200/80 p-5 shadow-sm sticky top-20">
+          <div className="bg-white/92 backdrop-blur-md rounded-2xl border-t-4 border-t-[#0284C7] border-x border-b border-white/70 p-5 shadow-md sticky top-20">
             {/* Người đăng card */}
             <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
               <div className="w-12 h-12 rounded-full bg-linear-to-tr from-[#0284C7] to-[#0369A1] text-white font-black text-lg flex items-center justify-center shrink-0 shadow-xs">
@@ -805,7 +805,7 @@ export default function DetailClient({
       />
 
       {/* ================= MOBILE STICKY CONTACT BAR ================= */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-[0_-6px_25px_rgba(0,0,0,0.12)] p-2.5 px-3 flex items-center gap-2">
+      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-[0_-6px_25px_rgba(0,0,0,0.12)] p-2.5 px-3 safe-bottom flex items-center gap-2">
         {/* Nút Lưu tin */}
         <button
           type="button"

@@ -366,7 +366,7 @@ export default function NhaTrangInteractiveMap({
 
         {/* Floating Active Room Preview Card */}
         {activeRoom && (
-          <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:w-84 z-20 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-[#FFBA00] p-3 animate-in slide-in-from-bottom-3 duration-200">
+          <div className="absolute bottom-16 sm:bottom-4 left-4 right-4 sm:right-auto sm:w-84 z-20 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-[#FFBA00] p-3 animate-in slide-in-from-bottom-3 duration-200">
             <div className="flex items-start justify-between gap-2 mb-1.5">
               <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
                 {activeRoom.district || "Nha Trang"}

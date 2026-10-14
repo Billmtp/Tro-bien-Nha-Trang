@@ -6,10 +6,8 @@ import Image from "next/image";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import PostRoomModal from "./PostRoomModal";
 import SavedRoomsDrawer from "./SavedRoomsDrawer";
-import AuthModal from "./AuthModal";
 import MyRoomsModal from "./MyRoomsModal";
 import VerifyAccountModal from "./VerifyAccountModal";
-import UserProfileModal from "./UserProfileModal";
 import UnverifiedFloatingAlert from "./UnverifiedFloatingAlert";
 import RoomAlertModal from "./RoomAlertModal";
 import DownloadAppModal from "./DownloadAppModal";
@@ -34,9 +32,7 @@ export default function HeaderChotot({
   const [isSavedOpen, setIsSavedOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isDownloadAppOpen, setIsDownloadAppOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isMyRoomsOpen, setIsMyRoomsOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isVerifyOpen, setIsVerifyOpen] = useState(false);
   const [verifyInitialMethod, setVerifyInitialMethod] = useState<"phone" | "email">("phone");
   const [isVerifyPostRequired, setIsVerifyPostRequired] = useState(false);
@@ -57,6 +53,18 @@ export default function HeaderChotot({
   useEffect(() => {
     checkUser();
     window.addEventListener("auth_state_changed", checkUser);
+
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("oauth_success") === "1") {
+        showAppAlert("Đăng nhập tài khoản Google thành công!", "Google OAuth", "success");
+        checkUser();
+        window.dispatchEvent(new Event("auth_state_changed"));
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    }
+
     return () => window.removeEventListener("auth_state_changed", checkUser);
   }, []);
 
@@ -64,7 +72,6 @@ export default function HeaderChotot({
     await fetch("/api/auth/logout", { method: "POST" });
     setUser(null);
     setUserMenuOpen(false);
-    setIsProfileOpen(false);
     window.dispatchEvent(new Event("auth_state_changed"));
     router.refresh();
   };
@@ -89,7 +96,7 @@ export default function HeaderChotot({
   const handleOpenPost = () => {
     if (!user) {
       showAppAlert("Vui lòng đăng nhập tài khoản trước khi đăng bài.", "Đăng tin phòng trọ", "info");
-      setIsAuthOpen(true);
+      router.push("/dang-nhap?redirect=/dang-tin");
       return;
     }
     // CHỈ TÀI KHOẢN ĐÃ XÁC THỰC SĐT HOẶC GMAIL MỚI ĐƯỢC ĐĂNG TIN
@@ -104,31 +111,31 @@ export default function HeaderChotot({
 
   return (
     <>
-      <header className="trobien-header bg-linear-to-r from-[#034A75] via-[#026AA7] to-[#01588B] text-white sticky top-0 z-40 shadow-md border-b border-sky-400/30">
+      <header className="trobien-header bg-linear-to-r from-[#034A75] via-[#026AA7] to-[#01588B] text-white sticky top-0 z-40 shadow-md border-b border-sky-400/30 w-full max-w-full overflow-x-clip">
         {/* Main topbar */}
-        <div className="max-w-6xl mx-auto px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4 md:gap-6">
-          {/* Brand Logo Trọ Biển Nha Trang - Phóng to nổi bật, rõ nét */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group py-0.5" title="Trọ Biển Nha Trang - Trang chủ">
-            <div className="bg-white rounded-2xl p-1 sm:p-1.5 shadow-md border border-white/90 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
+        <div className="max-w-6xl mx-auto px-2.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-4 md:gap-6 w-full min-w-0">
+          {/* Brand Logo Trọ Biển Nha Trang - Tối ưu hiển thị vừa vặn trên Mobile */}
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 group py-0.5" title="Trọ Biển Nha Trang - Trang chủ">
+            <div className="bg-white rounded-xl sm:rounded-2xl p-1 sm:p-1.5 shadow-md border border-white/90 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
               <Image
                 src="/tro-bien-logo.png"
                 alt="Trọ Biển Nha Trang - Tìm phòng gần biển, an tâm giá tốt"
                 width={120}
                 height={120}
-                className="h-10 w-10 xs:h-11 xs:w-11 sm:h-13 sm:w-13 md:h-14 md:w-14 object-contain rounded-xl"
+                className="h-8 w-8 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain rounded-lg sm:rounded-xl"
                 priority
               />
             </div>
             <div className="flex flex-col justify-center select-none">
               <div className="flex items-center gap-1 sm:gap-1.5 leading-none">
-                <span className="font-black text-base xs:text-lg sm:text-xl md:text-2xl text-white tracking-tight drop-shadow-xs font-sans">
+                <span className="font-black text-sm sm:text-xl md:text-2xl text-white tracking-tight drop-shadow-xs font-sans whitespace-nowrap">
                   TRỌ BIỂN
                 </span>
-                <span className="text-[9px] sm:text-[10px] md:text-xs font-black bg-[#FF7A00] text-white px-1.5 py-0.5 rounded shadow-xs uppercase tracking-wider">
+                <span className="text-[8px] sm:text-[10px] md:text-xs font-black bg-[#FF7A00] text-white px-1 sm:px-1.5 py-0.5 rounded shadow-xs uppercase tracking-wider whitespace-nowrap">
                   Nha Trang
                 </span>
               </div>
-              <span className="text-[10px] sm:text-[11px] font-semibold text-sky-100/90 tracking-tight mt-0.5 hidden xs:block">
+              <span className="text-[10px] sm:text-[11px] font-semibold text-sky-100/90 tracking-tight mt-0.5 hidden sm:block">
                 Gần biển • An tâm giá tốt
               </span>
             </div>
@@ -179,17 +186,17 @@ export default function HeaderChotot({
             {/* Chuyển nhanh Dark / Light Mode */}
             <button
               onClick={toggleMode}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-sm text-white bg-white/20 hover:bg-white/30 transition-all border border-white/30 backdrop-blur-md shadow-2xs cursor-pointer active:scale-95"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm text-white bg-white/20 hover:bg-white/30 transition-all border border-white/30 backdrop-blur-md shadow-2xs cursor-pointer active:scale-95 shrink-0"
               title={resolvedMode === "dark" ? "Chuyển sang Chế độ Sáng (Light Mode)" : "Chuyển sang Chế độ Tối (Dark Mode)"}
               aria-label="Chuyển chế độ sáng tối"
             >
               {resolvedMode === "dark" ? "☀️" : "🌙"}
             </button>
 
-            {/* Mở Modal Tùy biến Theme & Màu sắc */}
+            {/* Mở Modal Tùy biến Theme & Màu sắc (Desktop / Tablet) */}
             <button
               onClick={() => setIsCustomizerOpen(true)}
-              className="flex items-center justify-center w-8 h-8 md:w-auto md:px-2.5 md:py-1.5 rounded-full text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-all border border-white/30 backdrop-blur-md shadow-2xs cursor-pointer active:scale-95"
+              className="hidden sm:flex items-center justify-center w-8 h-8 md:w-auto md:px-2.5 md:py-1.5 rounded-full text-xs font-bold text-white bg-white/20 hover:bg-white/30 transition-all border border-white/30 backdrop-blur-md shadow-2xs cursor-pointer active:scale-95 shrink-0"
               title="Tùy biến 5 tông màu biển Nha Trang, Dark mode & giao diện"
             >
               <span>🎨</span>
@@ -234,10 +241,10 @@ export default function HeaderChotot({
 
             {/* Tài khoản / Đăng nhập */}
             {user ? (
-              <div className="relative">
+              <div className="relative shrink-0">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-xs font-bold text-white border border-white/30 transition-all shadow-xs cursor-pointer"
+                  className="flex items-center gap-1.5 sm:gap-2 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-xs font-bold text-white border border-white/30 transition-all shadow-xs cursor-pointer shrink-0"
                   title="Nhấn để xem ảnh hồ sơ và menu tài khoản"
                 >
                   {/* Avatar Tròn Trên Thanh Header */}
@@ -256,9 +263,9 @@ export default function HeaderChotot({
                     {user.name}
                   </span>
                   {(user.isVerified || user.isEmailVerified) && (
-                    <span className="text-emerald-300 text-xs font-black" title="Tài khoản đã xác thực uy tín">✓</span>
+                    <span className="text-emerald-300 text-xs font-black shrink-0" title="Tài khoản đã xác thực uy tín">✓</span>
                   )}
-                  <span className="text-[10px] text-sky-200">▼</span>
+                  <span className="text-[10px] text-sky-200 shrink-0">▼</span>
                 </button>
 
                 {/* Dropdown Menu với Ảnh Profile Lớn */}
@@ -267,7 +274,7 @@ export default function HeaderChotot({
                     {/* Thẻ Ảnh Profile Khi Bấm Vào Tên */}
                     <div
                       onClick={() => {
-                        setIsProfileOpen(true);
+                        router.push("/dang-nhap");
                         setUserMenuOpen(false);
                       }}
                       className="p-3.5 border-b border-gray-100 bg-linear-to-b from-amber-50/80 via-orange-50/30 to-white hover:bg-amber-100/60 cursor-pointer transition-all group"
@@ -328,14 +335,14 @@ export default function HeaderChotot({
 
                     <button
                       onClick={() => {
-                        setIsProfileOpen(true);
+                        router.push("/dang-nhap");
                         setUserMenuOpen(false);
                       }}
                       className="w-full text-left px-3.5 py-2 text-xs font-bold text-gray-800 hover:bg-amber-50 hover:text-[#FF7A00] flex items-center justify-between transition-colors"
                     >
                       <span className="flex items-center gap-2">
                         <span>👤</span>
-                        <span>Trang cá nhân & Tùy biến</span>
+                        <span>Tài khoản &amp; Hồ sơ cá nhân</span>
                       </span>
                       <span className="text-[10px] bg-amber-100 text-[#FF7A00] px-1.5 py-0.2 rounded font-bold">Mới</span>
                     </button>
@@ -377,6 +384,18 @@ export default function HeaderChotot({
                     >
                       <span>🎨</span> Tùy biến màu sắc &amp; Giao diện
                     </button>
+                    <button
+                      onClick={() => {
+                        setIsDownloadAppOpen(true);
+                        setUserMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3.5 py-2 text-xs font-bold text-emerald-700 bg-emerald-50/70 hover:bg-emerald-100/70 flex items-center justify-between"
+                    >
+                      <span className="flex items-center gap-2">
+                        <span>📲</span> Tải App Trọ Biển (APK)
+                      </span>
+                      <span className="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.2 rounded font-extrabold uppercase">APK</span>
+                    </button>
                     <div className="border-t border-gray-100 my-1" />
                     <button
                       onClick={handleLogout}
@@ -389,20 +408,20 @@ export default function HeaderChotot({
               </div>
             ) : (
               <button
-                onClick={() => setIsAuthOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white bg-white/20 hover:bg-white/30 border border-white/35 transition-colors cursor-pointer shadow-xs"
+                onClick={() => router.push("/dang-nhap")}
+                className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-bold text-white bg-white/20 hover:bg-white/30 border border-white/35 transition-colors cursor-pointer shadow-xs shrink-0"
               >
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <span>Đăng nhập</span>
               </button>
             )}
 
-            {/* Nút TẢI APP MOBILE (APK) với Logo App */}
+            {/* Nút TẢI APP MOBILE (APK) với Logo App (Desktop / Tablet) */}
             <button
               onClick={() => setIsDownloadAppOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full text-xs font-black text-white bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 border border-emerald-300/60 shadow-md shadow-emerald-950/20 transition-all transform active:scale-95 cursor-pointer shrink-0"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full text-xs font-black text-white bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 border border-emerald-300/60 shadow-md shadow-emerald-950/20 transition-all transform active:scale-95 cursor-pointer shrink-0"
               title="Tải ứng dụng Android (File APK bản mới nhất)"
             >
               <div className="w-5 h-5 rounded-full bg-white p-0.5 shadow-2xs flex items-center justify-center shrink-0">
@@ -434,9 +453,9 @@ export default function HeaderChotot({
         </div>
 
         {/* Mobile Search Bar Row (Hiển thị riêng trên Mobile để ô tìm kiếm full-width, gõ thoáng) */}
-        <div className="md:hidden px-3 pb-2.5 pt-0.5">
-          <form onSubmit={handleSearch} className="w-full relative">
-            <div className="flex items-center bg-white rounded-full pl-3.5 pr-1 py-1 border border-white shadow-md focus-within:ring-2 focus-within:ring-[#FF7A00] transition-all">
+        <div className="md:hidden px-3 pb-2.5 pt-0.5 w-full max-w-full overflow-hidden">
+          <form onSubmit={handleSearch} className="w-full relative min-w-0">
+            <div className="flex items-center bg-white rounded-full pl-3.5 pr-1 py-1 border border-white shadow-md focus-within:ring-2 focus-within:ring-[#FF7A00] transition-all w-full min-w-0">
               <input
                 type="text"
                 placeholder={
@@ -476,9 +495,9 @@ export default function HeaderChotot({
         </div>
 
         {/* Category Tabs: Cho thuê phòng trọ vs Mua bán nhà đất */}
-        <div className="trobien-category-bar bg-[#025687] text-white text-xs pt-1.5 px-3 sm:px-4 border-t border-sky-400/20">
-          <div className="max-w-6xl mx-auto flex items-end justify-between overflow-x-auto whitespace-nowrap scrollbar-none gap-3">
-            <div className="flex items-center gap-1.5">
+        <div className="trobien-category-bar bg-[#025687] text-white text-xs pt-1.5 px-3 sm:px-4 border-t border-sky-400/20 w-full max-w-full overflow-hidden">
+          <div className="max-w-6xl mx-auto flex items-end justify-between overflow-x-auto whitespace-nowrap scrollbar-none gap-3 w-full min-w-0">
+            <div className="flex items-center gap-1.5 shrink-0">
               <Link
                 href="/?category=rent"
                 className={`flex items-center gap-1.5 px-3.5 py-2 font-bold text-xs rounded-t-xl transition-all ${
@@ -527,16 +546,7 @@ export default function HeaderChotot({
         </div>
       </header>
 
-      {/* Auth Modal */}
-      {isAuthOpen && (
-        <AuthModal
-          onClose={() => setIsAuthOpen(false)}
-          onSuccess={(u) => {
-            setUser(u);
-            setIsAuthOpen(false);
-          }}
-        />
-      )}
+
 
       {/* My Rooms Modal */}
       {isMyRoomsOpen && (
@@ -570,25 +580,6 @@ export default function HeaderChotot({
         />
       )}
 
-      {/* User Profile Modal */}
-      {isProfileOpen && user && (
-        <UserProfileModal
-          user={user}
-          savedCount={savedCount}
-          onClose={() => setIsProfileOpen(false)}
-          onOpenVerify={(method) => {
-            setIsProfileOpen(false);
-            handleOpenVerify(method);
-          }}
-          onOpenMyRooms={() => {
-            setIsProfileOpen(false);
-            setIsMyRoomsOpen(true);
-          }}
-          onUserUpdated={(updatedUser) => {
-            setUser(updatedUser);
-          }}
-        />
-      )}
 
       {/* Verify Account OTP Modal */}
       {isVerifyOpen && user && (
@@ -618,7 +609,7 @@ export default function HeaderChotot({
       <UnverifiedFloatingAlert
         user={user}
         onOpenVerify={(method) => handleOpenVerify(method || "phone")}
-        onOpenProfile={() => setIsProfileOpen(true)}
+        onOpenProfile={() => router.push("/dang-nhap")}
       />
 
       {/* Radar Săn Phòng Nóng Modal */}
@@ -635,7 +626,7 @@ export default function HeaderChotot({
       {/* ================= MOBILE BOTTOM NAVIGATION BAR ================= */}
       {!isDetailPage && (
         <nav
-          className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] px-2 py-1 flex items-center justify-around"
+          className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-800 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] px-2 py-1 safe-bottom flex items-center justify-around"
           aria-label="Thanh điều hướng di động"
         >
           {/* 1. Trang chủ */}
@@ -696,11 +687,7 @@ export default function HeaderChotot({
           <button
             type="button"
             onClick={() => {
-              if (user) {
-                setIsProfileOpen(true);
-              } else {
-                setIsAuthOpen(true);
-              }
+              router.push("/dang-nhap");
             }}
             className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl text-gray-500 dark:text-slate-400 hover:text-gray-900 transition-all font-semibold cursor-pointer"
           >

@@ -83,15 +83,16 @@ export default function DownloadAppModal({ isOpen, onClose }: DownloadAppModalPr
           {/* Badge Thông tin bản build */}
           <div className="bg-sky-50 border border-sky-200/80 rounded-2xl p-3 flex items-center justify-between gap-3 text-xs">
             <div>
-              <div className="font-bold text-sky-950 flex items-center gap-1">
-                <span>🤖 Phiên bản: v1.0.0 (Bản build mới nhất)</span>
+              <div className="font-bold text-sky-950 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Phiên bản: v1.2.0 (Bản phát hành mới nhất)</span>
               </div>
               <div className="text-sky-700 text-[11px] mt-0.5">
                 Dung lượng: ~88 MB • Gói: vn.trobien.nhatrang
               </div>
             </div>
-            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-1 rounded-full uppercase shrink-0">
-              Sẵn sàng tải
+            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full uppercase shrink-0">
+              Mới cập nhật
             </span>
           </div>
 
@@ -107,6 +108,75 @@ export default function DownloadAppModal({ isOpen, onClose }: DownloadAppModalPr
             </svg>
             <span>TẢI TRỰC TIẾP FILE APK (88 MB)</span>
           </a>
+
+          {/* Phần Nhật ký cập nhật (Change Log) */}
+          <div className="bg-linear-to-br from-slate-50 to-sky-50/50 border border-slate-200/90 rounded-2xl p-3.5 space-y-2.5">
+            <div className="flex items-center justify-between border-b border-slate-200/80 pb-2">
+              <div className="flex items-center gap-1.5 font-black text-slate-800 text-xs tracking-tight">
+                <span className="text-sm">📋</span>
+                <span>NHẬT KÝ CẬP NHẬT (CHANGE LOG)</span>
+              </div>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+                v1.2.0
+              </span>
+            </div>
+
+            <div className="space-y-2 text-xs">
+              <div className="bg-white/80 rounded-xl p-2.5 border border-sky-100 shadow-2xs space-y-1.5">
+                <div className="font-bold text-sky-950 flex items-center gap-1">
+                  <span>🌊</span>
+                  <span>Hình nền biển Dynamic Fullscreen:</span>
+                </div>
+                <p className="text-[11px] text-slate-600 pl-4 leading-relaxed">
+                  Tự động căn chỉnh full màn hình trên mọi kích cỡ thiết bị di động, phủ lớp chuyển sắc dịu mắt nịnh mắt người nhìn.
+                </p>
+
+                <div className="font-bold text-sky-950 flex items-center gap-1 pt-1">
+                  <span>🔐</span>
+                  <span>Đăng nhập Google OAuth thật 100%:</span>
+                </div>
+                <p className="text-[11px] text-slate-600 pl-4 leading-relaxed">
+                  Đăng nhập thật qua Google với bảo mật cao. Sau khi đăng nhập thành công, tự động điều hướng về ngay trang chủ.
+                </p>
+
+                <div className="font-bold text-sky-950 flex items-center gap-1 pt-1">
+                  <span>🏠</span>
+                  <span>Hợp nhất toàn bộ mục Tài Khoản:</span>
+                </div>
+                <p className="text-[11px] text-slate-600 pl-4 leading-relaxed">
+                  Thay thế hoàn toàn màn hình cũ, giải quyết triệt để lỗi ghi đè menu và lỗi tràn giao diện trên điện thoại.
+                </p>
+
+                <div className="font-bold text-sky-950 flex items-center gap-1 pt-1">
+                  <span>🎓</span>
+                  <span>Tích Xanh &amp; Quyền lợi sinh viên:</span>
+                </div>
+                <p className="text-[11px] text-slate-600 pl-4 leading-relaxed">
+                  Tự động cấp huy hiệu Tích Xanh uy tín cho sinh viên ĐH Nha Trang (*.edu.vn, SV NTU), miễn cọc giữ chỗ và ưu tiên hiển thị.
+                </p>
+
+                <div className="font-bold text-sky-950 flex items-center gap-1 pt-1">
+                  <span>⚡</span>
+                  <span>Tối ưu tải tin &amp; Phục hồi kết nối Database:</span>
+                </div>
+                <p className="text-[11px] text-slate-600 pl-4 leading-relaxed">
+                  Khắc phục triệt để lỗi fetch chi tiết phòng trọ, tự động phục hồi kết nối Neon serverless và cache siêu tốc &lt;10ms.
+                </p>
+              </div>
+
+              {/* Version trước: v1.1.0 */}
+              <div className="bg-slate-100/70 rounded-xl p-2 border border-slate-200 text-[11px] text-slate-500">
+                <div className="font-bold text-slate-700 flex items-center justify-between mb-0.5">
+                  <span>📌 Bản tiền nhiệm v1.1.0:</span>
+                  <span className="text-[9px] text-slate-400">Tháng 10/2026</span>
+                </div>
+                <ul className="list-disc list-inside space-y-0.5 text-[10px]">
+                  <li>Bản đồ phòng trọ &amp; Radar cảnh báo ngập nước Nha Trang</li>
+                  <li>So sánh tiện ích phòng trọ và đo cự ly tới trường học</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
           {/* QR Code Quét Bằng Điện Thoại */}
           <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 text-center flex flex-col items-center">

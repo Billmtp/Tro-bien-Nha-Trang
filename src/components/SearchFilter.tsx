@@ -119,19 +119,19 @@ export default function SearchFilter({
   );
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border-t-4 border-t-[#0284C7] border-x border-b border-sky-200/80 p-3 md:p-4 mb-4">
+    <div className="bg-white/88 backdrop-blur-md rounded-2xl shadow-md border-t-4 border-t-[#0284C7] border-x border-b border-white/70 p-3 md:p-4 mb-4">
       {/* Top Filter Controls */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-sky-100">
         <div className="flex flex-wrap items-center gap-2 flex-1">
           {/* Khu vực Dropdown */}
-          <div className="relative">
+          <div className="relative flex-1 min-w-[135px] sm:flex-initial sm:min-w-0">
             <select
               value={district}
               onChange={(e) => {
                 setDistrict(e.target.value);
                 applyFilters(e.target.value, undefined, undefined);
               }}
-              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
+              className="w-full bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {DISTRICTS.map((d) => (
                 <option key={d} value={d}>
@@ -142,7 +142,7 @@ export default function SearchFilter({
           </div>
 
           {/* Mức giá Dropdown */}
-          <div className="relative">
+          <div className="relative flex-1 min-w-[135px] sm:flex-initial sm:min-w-0">
             <select
               value={priceIndex}
               onChange={(e) => {
@@ -150,7 +150,7 @@ export default function SearchFilter({
                 setPriceIndex(idx);
                 applyFilters(undefined, idx, undefined);
               }}
-              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
+              className="w-full bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {currentPriceRanges.map((r, i) => (
                 <option key={i} value={i}>
@@ -161,14 +161,14 @@ export default function SearchFilter({
           </div>
 
           {/* Sắp xếp */}
-          <div className="relative">
+          <div className="relative flex-1 min-w-[135px] sm:flex-initial sm:min-w-0">
             <select
               value={sort}
               onChange={(e) => {
                 setSort(e.target.value);
                 applyFilters(undefined, undefined, e.target.value, undefined);
               }}
-              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
+              className="w-full bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {SORTS.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -179,14 +179,14 @@ export default function SearchFilter({
           </div>
 
           {/* Nguồn tin */}
-          <div className="relative">
+          <div className="relative flex-1 min-w-[135px] sm:flex-initial sm:min-w-0">
             <select
               value={site}
               onChange={(e) => {
                 setSite(e.target.value);
                 applyFilters(undefined, undefined, undefined, e.target.value);
               }}
-              className="bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
+              className="w-full bg-sky-50/70 hover:bg-sky-100/70 text-slate-800 text-xs md:text-sm font-semibold py-2 px-3 rounded-xl border border-sky-200/80 focus:border-[#0284C7] focus:ring-1 focus:ring-sky-300 outline-none cursor-pointer transition-all"
             >
               {SOURCES.map((sc) => (
                 <option key={sc.value} value={sc.value}>

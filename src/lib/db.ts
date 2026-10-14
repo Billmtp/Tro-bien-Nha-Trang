@@ -20,7 +20,9 @@ async function executeWithRetry<T>(fn: () => Promise<T>, maxRetries = 3, delayMs
         err?.message?.includes("connection pool") ||
         err?.message?.includes("ConnectionReset") ||
         err?.message?.includes("forcibly closed") ||
-        err?.message?.includes("closed by the remote host");
+        err?.message?.includes("closed by the remote host") ||
+        err?.message?.includes("Closed") ||
+        err?.toString()?.includes("Closed");
 
       if (isConnectionError && attempt < maxRetries) {
         console.warn(`[Neon DB Cold Start] Lần thử ${attempt}/${maxRetries} thất bại (Đang chờ Neon thức dậy: ${delayMs * attempt}ms)...`);

@@ -13,15 +13,20 @@ export async function POST(request: Request) {
       );
     }
 
-    const cleanPhone = phone.trim().replace(/\s+/g, "");
+    const cleanInput = phone.trim();
+    const isEmail = cleanInput.includes("@");
 
-    const user = await prisma.user.findUnique({
-      where: { phone: cleanPhone },
-    });
+    const user = isEmail
+      ? await prisma.user.findFirst({
+          where: { email: { equals: cleanInput.toLowerCase(), mode: "insensitive" } },
+        })
+      : await prisma.user.findUnique({
+          where: { phone: cleanInput.replace(/\s+/g, "") },
+        });
 
     if (!user || !verifyPassword(password, user.password)) {
       return NextResponse.json(
-        { error: "Số điện thoại hoặc mật khẩu không chính xác." },
+        { error: isEmail ? "Email hoặc mật khẩu không chính xác." : "Số điện thoại hoặc mật khẩu không chính xác." },
         { status: 401 }
       );
     }

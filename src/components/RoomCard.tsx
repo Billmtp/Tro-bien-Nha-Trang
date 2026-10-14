@@ -225,22 +225,22 @@ export default function RoomCard({
       <Link
         href={`/phong/${room.id}`}
         prefetch={true}
-        className={`group flex bg-white rounded-2xl transition-all duration-200 overflow-hidden relative ${
+        className={`group flex bg-white/88 backdrop-blur-md rounded-2xl transition-all duration-200 overflow-hidden relative ${
           isJustScanned
-            ? "border-2 border-emerald-500 bg-emerald-50/20 shadow-md ring-2 ring-emerald-300/60"
+            ? "border-2 border-emerald-500 bg-emerald-50/40 shadow-md ring-2 ring-emerald-300/60"
             : isCompared
-            ? "border-2 border-[#FF7A00] shadow-md ring-2 ring-amber-300/60 bg-amber-50/15"
-            : "border border-sky-100/90 hover:border-[#0284C7] hover:shadow-lg hover:ring-2 hover:ring-sky-100 shadow-2xs"
+            ? "border-2 border-[#FF7A00] shadow-md ring-2 ring-amber-300/60 bg-amber-50/40"
+            : "border border-white/80 hover:border-[#0284C7] hover:shadow-lg hover:ring-2 hover:ring-sky-100 shadow-2xs"
         }`}
       >
         {/* Thumbnail bên trái */}
-        <div className="relative w-32 xs:w-36 sm:w-48 h-32 sm:h-36 bg-[#F4F4F4] shrink-0 overflow-hidden">
+        <div className="relative w-28 xs:w-34 sm:w-48 self-stretch min-h-[128px] bg-[#F4F4F4] shrink-0 overflow-hidden">
           <Image
             src={img}
             alt={room.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="200px"
+            sizes="(max-width: 640px) 130px, 200px"
             unoptimized
             onError={() => setImgError(true)}
           />
@@ -301,13 +301,13 @@ export default function RoomCard({
 
             {/* Địa chỉ & Khoảng cách */}
             <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-[#777777] mb-1.5">
-              <span className="truncate max-w-[150px] sm:max-w-xs flex items-center gap-0.5">
+              <span className="truncate max-w-[130px] sm:max-w-xs flex items-center gap-0.5">
                 <span>📍</span>
                 <span>{room.address || room.district || "Nha Trang"}</span>
               </span>
 
               {/* Commute distance badge */}
-              <span className="text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 shrink-0">
+              <span className="text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 shrink-0 max-w-[190px] truncate sm:max-w-none">
                 🛵 {commute.distanceKm} km ({commute.motorbikeMin}p {commute.landmarkName})
               </span>
             </div>
@@ -379,12 +379,12 @@ export default function RoomCard({
     <Link
       href={`/phong/${room.id}`}
       prefetch={true}
-      className={`group block bg-white rounded-2xl transition-all duration-200 overflow-hidden relative ${
+      className={`group block bg-white/88 backdrop-blur-md rounded-2xl transition-all duration-200 overflow-hidden relative ${
         isJustScanned
-          ? "border-2 border-emerald-500 bg-emerald-50/20 shadow-md ring-2 ring-emerald-300/60"
+          ? "border-2 border-emerald-500 bg-emerald-50/40 shadow-md ring-2 ring-emerald-300/60"
           : isCompared
-          ? "border-2 border-[#FF7A00] shadow-md ring-2 ring-amber-300/60 bg-amber-50/15"
-          : "border border-sky-100/90 hover:border-[#0284C7] hover:shadow-lg hover:ring-2 hover:ring-sky-100 shadow-2xs"
+          ? "border-2 border-[#FF7A00] shadow-md ring-2 ring-amber-300/60 bg-amber-50/40"
+          : "border border-white/80 hover:border-[#0284C7] hover:shadow-lg hover:ring-2 hover:ring-sky-100 shadow-2xs"
       }`}
     >
       <div className="relative aspect-[4/3] bg-[#F4F4F4] overflow-hidden">
@@ -478,9 +478,9 @@ export default function RoomCard({
           </div>
 
           {/* Vị trí & Khoảng cách */}
-          <div className="flex items-center justify-between text-[11px] text-[#777777] mb-1.5">
+          <div className="flex items-center justify-between text-[11px] text-[#777777] mb-1.5 gap-1">
             <span className="truncate">📍 {room.district || "Nha Trang"}</span>
-            <span className="text-emerald-700 font-bold bg-emerald-50 px-1 py-0.2 rounded text-[10px]">
+            <span className="text-emerald-700 font-bold bg-emerald-50 px-1 py-0.2 rounded text-[10px] shrink-0 truncate max-w-[100px]">
               🛵 {commute.distanceKm}km {commute.landmarkName}
             </span>
           </div>

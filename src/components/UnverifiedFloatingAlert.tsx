@@ -35,7 +35,7 @@ export default function UnverifiedFloatingAlert({
   }
 
   return (
-    <aside aria-label="Thông báo xác thực tài khoản" className="fixed bottom-18 right-4 sm:bottom-6 sm:right-6 z-40 select-none max-w-[calc(100vw-2rem)]">
+    <aside aria-label="Thông báo xác thực tài khoản" className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] right-3 sm:right-6 sm:bottom-6 z-40 select-none max-w-[calc(100vw-1.5rem)]">
       {isMinimized ? (
         /* Minimized State: Floating Pulsing Warning Button */
         <button
@@ -59,7 +59,7 @@ export default function UnverifiedFloatingAlert({
         </button>
       ) : (
         /* Expanded Floating Card */
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-amber-400 p-4 w-76 sm:w-84 animate-in slide-in-from-bottom-5 duration-200">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border-2 border-amber-400 p-3.5 sm:p-4 w-[calc(100vw-1.5rem)] max-w-76 sm:max-w-84 animate-in slide-in-from-bottom-5 duration-200">
           {/* Header */}
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">

@@ -40,7 +40,7 @@ export default function LiveUpdateBanner({ category = "rent" }: { category?: str
   return (
     <div className="space-y-2 mb-3">
       {/* Real-time Status Strip */}
-      <div className="flex items-center justify-between bg-linear-to-r from-sky-50/90 via-white to-teal-50/80 px-4 py-2.5 rounded-xl border border-sky-200/90 text-xs text-sky-950 shadow-2xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 bg-linear-to-r from-sky-50/90 via-white to-teal-50/80 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl border border-sky-200/90 text-xs text-sky-950 shadow-2xs w-full min-w-0 max-w-full">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

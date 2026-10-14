@@ -15,44 +15,54 @@ export const revalidate = 180;
 
 // Memory Cache + React Cache: 5 phút không cần query DB lại
 const getRoom = cache(async (roomId: number) => {
-  return memoryCache.getOrSet(
-    `room:${roomId}`,
-    () => prisma.room.findUnique({ where: { id: roomId } }),
-    300,
-    null
-  );
+  try {
+    return await memoryCache.getOrSet(
+      `room:${roomId}`,
+      () => prisma.room.findUnique({ where: { id: roomId } }),
+      300,
+      null
+    );
+  } catch (err) {
+    console.error(`[getRoom] Lỗi truy vấn phòng ID ${roomId}:`, err);
+    return null;
+  }
 });
 
 // Cache danh sách phòng tương tự
 const getSimilarRooms = cache(
   async (roomId: number, category: string, district?: string | null) => {
-    return memoryCache.getOrSet(
-      `similar:${roomId}`,
-      () =>
-        prisma.room.findMany({
-          where: {
-            id: { not: roomId },
-            isActive: true,
-            category,
-            ...(district ? { district } : {}),
-          },
-          take: 4,
-          orderBy: { scrapedAt: "desc" },
-          select: {
-            id: true,
-            title: true,
-            price: true,
-            area: true,
-            district: true,
-            images: true,
-            sourceUrl: true,
-            sourceSite: true,
-            scrapedAt: true,
-          },
-        }),
-      300,
-      []
-    );
+    try {
+      return await memoryCache.getOrSet(
+        `similar:${roomId}`,
+        () =>
+          prisma.room.findMany({
+            where: {
+              id: { not: roomId },
+              isActive: true,
+              category,
+              ...(district ? { district } : {}),
+            },
+            take: 4,
+            orderBy: { scrapedAt: "desc" },
+            select: {
+              id: true,
+              title: true,
+              price: true,
+              area: true,
+              district: true,
+              images: true,
+              sourceUrl: true,
+              sourceSite: true,
+              scrapedAt: true,
+            },
+          }),
+        300,
+        []
+      );
+    } catch (err) {
+      console.error(`[getSimilarRooms] Lỗi truy vấn phòng tương tự:`, err);
+      return [];
+    }
   }
 );
 
