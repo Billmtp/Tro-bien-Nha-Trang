@@ -8,8 +8,8 @@ interface DownloadAppModalProps {
   onClose: () => void;
 }
 
-const APK_DIRECT_URL = "https://expo.dev/artifacts/eas/d9JM0Hb-rMV-NrqSBZRSvxz02X8BI_3UiHvcvfp42FQ.apk";
-const EXPO_BUILD_PAGE = "https://expo.dev/accounts/karaken510/projects/karaken/builds/de303f92-03da-489a-998e-29fcedcd498f";
+const APK_DIRECT_URL = "https://expo.dev/artifacts/eas/xthog8G7qIoB3yyPdFb_UMpslHocrF7XXGbsyVujTL0.apk";
+const EXPO_BUILD_PAGE = "https://expo.dev/accounts/karaken510s-team/projects/karaken/builds/414e4e84-2f7e-4c72-87f3-580e6d380dbf";
 const QR_CODE_URL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(APK_DIRECT_URL)}`;
 
 export default function DownloadAppModal({ isOpen, onClose }: DownloadAppModalProps) {
